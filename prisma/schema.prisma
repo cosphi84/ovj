@@ -5,9 +5,72 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar(50)
+  email     String  @unique @db.VarChar(75)
+  password  String  @db.VarChar(150)
+  active    Boolean @default(true)
+
+  jobsApproved     Job[] @relation("ApprovedBy")
+  jobsReceived     Job[] @relation("ReceivedBy")
+  jobsHandled      Job[] @relation("HandledBy")
+  jobsSentBack     Job[] @relation("SentBackBy")
+  jobsCompleted    Job[] @relation("CompletedBy")
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique @db.VarChar(50)
+  description String? @db.VarChar(200)
+
+  jobs Job[]
+}
+
+model Job {
+  id              BigInt   @id @default(autoincrement())
+  categoryId      Int
+  category        Category @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  notification    String   @unique @db.VarChar(50)
+  model           String?  @db.VarChar(50)
+  serialNumber    String?  @db.VarChar(75)
+  symptom         String   @db.VarChar(100)
+  actions         String
+  changedParts    String?  @db.VarChar(255)
+  sender          String
+  requestBy       String
+  requestOn       DateTime
+
+  approvedBy      Int?
+  approvedByUser  User?    @relation("ApprovedBy", fields: [approvedBy], references: [id], onDelete: SetNull)
+  approvedOn      DateTime?
+
+  receivedBy      Int?
+  receivedByUser  User?    @relation("ReceivedBy", fields: [receivedBy], references: [id], onDelete: SetNull)
+  receivedOn      DateTime?
+
+  handledBy       Int?
+  handledByUser   User?    @relation("HandledBy", fields: [handledBy], references: [id], onDelete: SetNull)
+  handledOn       DateTime?
+  actionTakenByTC String?
+  result          String?  // OK, FAILED
+
+  sentBackBy      Int?
+  sentBackByUser  User?    @relation("SentBackBy", fields: [sentBackBy], references: [id], onDelete: SetNull)
+  sendBackOn      DateTime?
+  awbNumber       String?  @db.VarChar(50)
+
+  completedBy     Int?
+  completedByUser User?    @relation("CompletedBy", fields: [completedBy], references: [id], onDelete: SetNull)
+  completedOn     DateTime?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
