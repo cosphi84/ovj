@@ -57,6 +57,7 @@ export type JobMinAggregateOutputType = {
   changedParts: string | null
   sender: string | null
   requestBy: string | null
+  requestByEmail: string | null
   requestOn: Date | null
   approvedBy: number | null
   approvedOn: Date | null
@@ -86,6 +87,7 @@ export type JobMaxAggregateOutputType = {
   changedParts: string | null
   sender: string | null
   requestBy: string | null
+  requestByEmail: string | null
   requestOn: Date | null
   approvedBy: number | null
   approvedOn: Date | null
@@ -115,6 +117,7 @@ export type JobCountAggregateOutputType = {
   changedParts: number
   sender: number
   requestBy: number
+  requestByEmail: number
   requestOn: number
   approvedBy: number
   approvedOn: number
@@ -166,6 +169,7 @@ export type JobMinAggregateInputType = {
   changedParts?: true
   sender?: true
   requestBy?: true
+  requestByEmail?: true
   requestOn?: true
   approvedBy?: true
   approvedOn?: true
@@ -195,6 +199,7 @@ export type JobMaxAggregateInputType = {
   changedParts?: true
   sender?: true
   requestBy?: true
+  requestByEmail?: true
   requestOn?: true
   approvedBy?: true
   approvedOn?: true
@@ -224,6 +229,7 @@ export type JobCountAggregateInputType = {
   changedParts?: true
   sender?: true
   requestBy?: true
+  requestByEmail?: true
   requestOn?: true
   approvedBy?: true
   approvedOn?: true
@@ -340,6 +346,7 @@ export type JobGroupByOutputType = {
   changedParts: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date
   approvedBy: number | null
   approvedOn: Date | null
@@ -392,6 +399,7 @@ export type JobWhereInput = {
   changedParts?: Prisma.StringNullableFilter<"Job"> | string | null
   sender?: Prisma.StringFilter<"Job"> | string
   requestBy?: Prisma.StringFilter<"Job"> | string
+  requestByEmail?: Prisma.StringFilter<"Job"> | string
   requestOn?: Prisma.DateTimeFilter<"Job"> | Date | string
   approvedBy?: Prisma.IntNullableFilter<"Job"> | number | null
   approvedOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
@@ -427,6 +435,7 @@ export type JobOrderByWithRelationInput = {
   changedParts?: Prisma.SortOrderInput | Prisma.SortOrder
   sender?: Prisma.SortOrder
   requestBy?: Prisma.SortOrder
+  requestByEmail?: Prisma.SortOrder
   requestOn?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedOn?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -465,6 +474,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   changedParts?: Prisma.StringNullableFilter<"Job"> | string | null
   sender?: Prisma.StringFilter<"Job"> | string
   requestBy?: Prisma.StringFilter<"Job"> | string
+  requestByEmail?: Prisma.StringFilter<"Job"> | string
   requestOn?: Prisma.DateTimeFilter<"Job"> | Date | string
   approvedBy?: Prisma.IntNullableFilter<"Job"> | number | null
   approvedOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
@@ -500,6 +510,7 @@ export type JobOrderByWithAggregationInput = {
   changedParts?: Prisma.SortOrderInput | Prisma.SortOrder
   sender?: Prisma.SortOrder
   requestBy?: Prisma.SortOrder
+  requestByEmail?: Prisma.SortOrder
   requestOn?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedOn?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -537,6 +548,7 @@ export type JobScalarWhereWithAggregatesInput = {
   changedParts?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   sender?: Prisma.StringWithAggregatesFilter<"Job"> | string
   requestBy?: Prisma.StringWithAggregatesFilter<"Job"> | string
+  requestByEmail?: Prisma.StringWithAggregatesFilter<"Job"> | string
   requestOn?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
   approvedBy?: Prisma.IntNullableWithAggregatesFilter<"Job"> | number | null
   approvedOn?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
@@ -565,6 +577,7 @@ export type JobCreateInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -595,6 +608,7 @@ export type JobUncheckedCreateInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -623,6 +637,7 @@ export type JobUpdateInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -653,6 +668,7 @@ export type JobUncheckedUpdateInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -682,6 +698,7 @@ export type JobCreateManyInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -710,6 +727,7 @@ export type JobUpdateManyMutationInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -734,6 +752,7 @@ export type JobUncheckedUpdateManyInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -773,6 +792,7 @@ export type JobCountOrderByAggregateInput = {
   changedParts?: Prisma.SortOrder
   sender?: Prisma.SortOrder
   requestBy?: Prisma.SortOrder
+  requestByEmail?: Prisma.SortOrder
   requestOn?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedOn?: Prisma.SortOrder
@@ -812,6 +832,7 @@ export type JobMaxOrderByAggregateInput = {
   changedParts?: Prisma.SortOrder
   sender?: Prisma.SortOrder
   requestBy?: Prisma.SortOrder
+  requestByEmail?: Prisma.SortOrder
   requestOn?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedOn?: Prisma.SortOrder
@@ -841,6 +862,7 @@ export type JobMinOrderByAggregateInput = {
   changedParts?: Prisma.SortOrder
   sender?: Prisma.SortOrder
   requestBy?: Prisma.SortOrder
+  requestByEmail?: Prisma.SortOrder
   requestOn?: Prisma.SortOrder
   approvedBy?: Prisma.SortOrder
   approvedOn?: Prisma.SortOrder
@@ -1155,6 +1177,7 @@ export type JobCreateWithoutApprovedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1184,6 +1207,7 @@ export type JobUncheckedCreateWithoutApprovedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedBy?: number | null
@@ -1221,6 +1245,7 @@ export type JobCreateWithoutReceivedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1250,6 +1275,7 @@ export type JobUncheckedCreateWithoutReceivedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1287,6 +1313,7 @@ export type JobCreateWithoutHandledByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1316,6 +1343,7 @@ export type JobUncheckedCreateWithoutHandledByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1353,6 +1381,7 @@ export type JobCreateWithoutSentBackByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1382,6 +1411,7 @@ export type JobUncheckedCreateWithoutSentBackByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1419,6 +1449,7 @@ export type JobCreateWithoutCompletedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1448,6 +1479,7 @@ export type JobUncheckedCreateWithoutCompletedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1505,6 +1537,7 @@ export type JobScalarWhereInput = {
   changedParts?: Prisma.StringNullableFilter<"Job"> | string | null
   sender?: Prisma.StringFilter<"Job"> | string
   requestBy?: Prisma.StringFilter<"Job"> | string
+  requestByEmail?: Prisma.StringFilter<"Job"> | string
   requestOn?: Prisma.DateTimeFilter<"Job"> | Date | string
   approvedBy?: Prisma.IntNullableFilter<"Job"> | number | null
   approvedOn?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
@@ -1597,6 +1630,7 @@ export type JobCreateWithoutCategoryInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedOn?: Date | string | null
@@ -1625,6 +1659,7 @@ export type JobUncheckedCreateWithoutCategoryInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1680,6 +1715,7 @@ export type JobCreateManyApprovedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedOn?: Date | string | null
   receivedBy?: number | null
@@ -1708,6 +1744,7 @@ export type JobCreateManyReceivedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1736,6 +1773,7 @@ export type JobCreateManyHandledByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1764,6 +1802,7 @@ export type JobCreateManySentBackByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1792,6 +1831,7 @@ export type JobCreateManyCompletedByUserInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -1819,6 +1859,7 @@ export type JobUpdateWithoutApprovedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1848,6 +1889,7 @@ export type JobUncheckedUpdateWithoutApprovedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1876,6 +1918,7 @@ export type JobUncheckedUpdateManyWithoutApprovedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -1903,6 +1946,7 @@ export type JobUpdateWithoutReceivedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1932,6 +1976,7 @@ export type JobUncheckedUpdateWithoutReceivedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1960,6 +2005,7 @@ export type JobUncheckedUpdateManyWithoutReceivedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1987,6 +2033,7 @@ export type JobUpdateWithoutHandledByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2016,6 +2063,7 @@ export type JobUncheckedUpdateWithoutHandledByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2044,6 +2092,7 @@ export type JobUncheckedUpdateManyWithoutHandledByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2071,6 +2120,7 @@ export type JobUpdateWithoutSentBackByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2100,6 +2150,7 @@ export type JobUncheckedUpdateWithoutSentBackByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2128,6 +2179,7 @@ export type JobUncheckedUpdateManyWithoutSentBackByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2155,6 +2207,7 @@ export type JobUpdateWithoutCompletedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2184,6 +2237,7 @@ export type JobUncheckedUpdateWithoutCompletedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2212,6 +2266,7 @@ export type JobUncheckedUpdateManyWithoutCompletedByUserInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2239,6 +2294,7 @@ export type JobCreateManyCategoryInput = {
   changedParts?: string | null
   sender: string
   requestBy: string
+  requestByEmail: string
   requestOn: Date | string
   approvedBy?: number | null
   approvedOn?: Date | string | null
@@ -2267,6 +2323,7 @@ export type JobUpdateWithoutCategoryInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   receivedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2295,6 +2352,7 @@ export type JobUncheckedUpdateWithoutCategoryInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2323,6 +2381,7 @@ export type JobUncheckedUpdateManyWithoutCategoryInput = {
   changedParts?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sender?: Prisma.StringFieldUpdateOperationsInput | string
   requestBy?: Prisma.StringFieldUpdateOperationsInput | string
+  requestByEmail?: Prisma.StringFieldUpdateOperationsInput | string
   requestOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   approvedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   approvedOn?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2354,6 +2413,7 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   changedParts?: boolean
   sender?: boolean
   requestBy?: boolean
+  requestByEmail?: boolean
   requestOn?: boolean
   approvedBy?: boolean
   approvedOn?: boolean
@@ -2389,6 +2449,7 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   changedParts?: boolean
   sender?: boolean
   requestBy?: boolean
+  requestByEmail?: boolean
   requestOn?: boolean
   approvedBy?: boolean
   approvedOn?: boolean
@@ -2424,6 +2485,7 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   changedParts?: boolean
   sender?: boolean
   requestBy?: boolean
+  requestByEmail?: boolean
   requestOn?: boolean
   approvedBy?: boolean
   approvedOn?: boolean
@@ -2459,6 +2521,7 @@ export type JobSelectScalar = {
   changedParts?: boolean
   sender?: boolean
   requestBy?: boolean
+  requestByEmail?: boolean
   requestOn?: boolean
   approvedBy?: boolean
   approvedOn?: boolean
@@ -2477,7 +2540,7 @@ export type JobSelectScalar = {
   updatedAt?: boolean
 }
 
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryId" | "notification" | "model" | "serialNumber" | "symptom" | "actions" | "changedParts" | "sender" | "requestBy" | "requestOn" | "approvedBy" | "approvedOn" | "receivedBy" | "receivedOn" | "handledBy" | "handledOn" | "actionTakenByTC" | "result" | "sentBackBy" | "sendBackOn" | "awbNumber" | "completedBy" | "completedOn" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "categoryId" | "notification" | "model" | "serialNumber" | "symptom" | "actions" | "changedParts" | "sender" | "requestBy" | "requestByEmail" | "requestOn" | "approvedBy" | "approvedOn" | "receivedBy" | "receivedOn" | "handledBy" | "handledOn" | "actionTakenByTC" | "result" | "sentBackBy" | "sendBackOn" | "awbNumber" | "completedBy" | "completedOn" | "createdAt" | "updatedAt", ExtArgs["result"]["job"]>
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.CategoryDefaultArgs<ExtArgs>
   approvedByUser?: boolean | Prisma.Job$approvedByUserArgs<ExtArgs>
@@ -2524,6 +2587,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     changedParts: string | null
     sender: string
     requestBy: string
+    requestByEmail: string
     requestOn: Date
     approvedBy: number | null
     approvedOn: Date | null
@@ -2979,6 +3043,7 @@ export interface JobFieldRefs {
   readonly changedParts: Prisma.FieldRef<"Job", 'String'>
   readonly sender: Prisma.FieldRef<"Job", 'String'>
   readonly requestBy: Prisma.FieldRef<"Job", 'String'>
+  readonly requestByEmail: Prisma.FieldRef<"Job", 'String'>
   readonly requestOn: Prisma.FieldRef<"Job", 'DateTime'>
   readonly approvedBy: Prisma.FieldRef<"Job", 'Int'>
   readonly approvedOn: Prisma.FieldRef<"Job", 'DateTime'>

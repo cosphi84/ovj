@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import {sendEmail} from "@/lib/mailer";
+import {EmailFormat} from "@/interface/mailer";
+import {RequestJobBodyMail} from "@/constants/mailer";
+import {Prisma} from "../../../../prisma/generated/prisma/client";
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,7 +15,7 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {};
+    const where: Prisma.JobWhereInput = {};
 
     if (active) {
       where.completedOn = null;
@@ -45,7 +49,7 @@ export async function GET(request: NextRequest) {
     ]);
 
     return NextResponse.json({
-      jobs: jobs.map((job: any) => ({
+      jobs: jobs.map((job) => ({
         ...job,
         id: job.id.toString(),
       })),
@@ -63,6 +67,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    const useMailer:boolean = process.env["USE_MAILER"] === "true";
+    const adminTC =
+        process.env["MAIL_PIC_ADMIN_TC"] ||
+        "nurlatifah.j@seid.sharp-world.com";
+
+    const groupTC =
+        process.env["MAIL_GROUP_TC"] ||
+        "mc-tc@seid.sharp-world.com";
+
 
     const {
       categoryId,
@@ -105,6 +118,23 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    if (useMailer){
+      const body = RequestJobBodyMail(job);
+      const composeEmail : EmailFormat = {
+        to: adminTC,
+        cc: groupTC,
+        subject: `Request Overjob ke TC Job ID: ${job.id} dari ${job.sender}`,
+        html: body
+      }
+
+      try {
+        await sendEmail(composeEmail);
+      }catch (error) {
+        console.error("Failed to send email:", error);
+      }
+
+    }
+
     return NextResponse.json({
       success: true,
       job: {
@@ -112,9 +142,10 @@ export async function POST(request: NextRequest) {
         id: job.id.toString(),
       },
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error("Failed to create job:", error);
-    if (error.code === "P2002") {
+    if (error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2002") {
       return NextResponse.json(
         { error: "Notification number already exists" },
         { status: 400 }

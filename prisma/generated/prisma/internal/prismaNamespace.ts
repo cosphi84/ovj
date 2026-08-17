@@ -711,6 +711,7 @@ export const JobScalarFieldEnum = {
   changedParts: 'changedParts',
   sender: 'sender',
   requestBy: 'requestBy',
+  requestByEmail: 'requestByEmail',
   requestOn: 'requestOn',
   approvedBy: 'approvedBy',
   approvedOn: 'approvedOn',

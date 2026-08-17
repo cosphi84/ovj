@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import {JobUpdateData, prisma} from "@/lib/db";
 import { getSession } from "@/lib/auth";
 
 export async function GET(
@@ -51,7 +51,7 @@ export async function PATCH(
     const body = await request.json();
     const { action, ...data } = body;
 
-    let updateData: any = {};
+    let updateData: JobUpdateData;
 
     switch (action) {
       case "approve":

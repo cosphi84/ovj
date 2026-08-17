@@ -1,253 +1,296 @@
-"use client";
+"use client"
 
-export const dynamic = "force-dynamic";
-import { useState, useEffect } from "react";
+import {Controller, useForm} from "react-hook-form";
+import {JobRequestFormDefaultValues, JobRequestFormValues, JobRequestSchema} from "@/schema/job-request";
+import {zodResolver} from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { Card , CardHeader, CardContent, CardTitle} from "@/components/ui/card";
+import {Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field";
+import {Input} from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {Button} from "@/components/ui/button";
+import {SaveIcon} from "lucide-react";
+import {Category} from "@/components/Categories";
 
-interface Category {
-  id: number;
-  name: string;
-}
+export default function JobRequestPage(){
+    const theForm = useForm<JobRequestFormValues>({
+        resolver: zodResolver(JobRequestSchema),
+        defaultValues: JobRequestFormDefaultValues
+    });
 
-export default function RequestPage() {
-  const router = useRouter();
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [formData, setFormData] = useState({
-    categoryId: "",
-    notification: "",
-    model: "",
-    serialNumber: "",
-    symptom: "",
-    actions: "",
-    changedParts: "",
-    sender: "",
-    requestBy: "",
-  });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  async function fetchCategories() {
-    try {
-      const response = await fetch("/api/categories");
-      const data = await response.json();
-      setCategories(data);
-    } catch (err) {
-      console.error("Failed to fetch categories:", err);
-    }
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-
-    if (!formData.categoryId || !formData.notification || !formData.symptom || !formData.actions || !formData.sender || !formData.requestBy) {
-      setError("Please fill in all required fields");
-      return;
+    const onSubmit = (v: JobRequestFormValues) => {
+        console.log(v)
     }
 
-    if (!window.confirm("Kirim Request ke TC?")) {
-      return;
-    }
+    return (
+        <div className="min-h-screen bg-gray-50">
+            <nav className="bg-white shadow">
+                <div className="max-w-4xl mx-auto px-4 py-4">
+                    <Link href="/" className="text-blue-500 hover:underline">
+                        ← Back to Jobs
+                    </Link>
+                </div>
+            </nav>
+            <main className="max-w-4xl mx-auto px-4 py-8">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className={"text-3xl font-bold mb-6"}>
+                            Request Transfer Job to TC
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <form id={"frmRequest"} onSubmit={theForm.handleSubmit(onSubmit)} className="bg-white p-6 rounded shadow">
+                            <FieldGroup>
+                                <Controller
+                                    name="categoryId"
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor="frmRequest-category">
+                                                Category
+                                            </FieldLabel>
 
-    setLoading(true);
-    try {
-      const response = await fetch("/api/jobs", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+                                            <Category
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                            />
 
-      if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || "Failed to submit request");
-      }
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
 
-      alert("Request submitted successfully!");
-      router.push("/");
-    } catch (err: any) {
-      setError(err.message || "Failed to submit request");
-    } finally {
-      setLoading(false);
-    }
-  }
+                                <Controller
+                                    name={"notification"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-notification"}>
+                                                Notification
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-notification"}
+                                                type="text"
+                                                placeholder="Notication Number"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="Notification"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                                autoFocus={true}
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+                                <Controller
+                                    name={"model"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-model"}>
+                                                Model
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-model"}
+                                                type="text"
+                                                placeholder="Model"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="Model"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow">
-        <div className="max-w-4xl mx-auto px-4 py-4">
-          <Link href="/" className="text-blue-500 hover:underline">
-            ← Back to Jobs
-          </Link>
+                                <Controller
+                                    name={"serialNumber"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-serialNumber"}>
+                                                serial Number
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-serialNumber"}
+                                                type="text"
+                                                placeholder="Serial Number"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="serialNumber"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"symptom"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-symptom"}>
+                                                Keluhan / Kerusakan
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-symptom"}
+                                                type="text"
+                                                placeholder="Keluhan / Kerusakan"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="symptom"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"actions"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-action"}>
+                                                Tindakan yang sudah di ambil
+                                            </FieldLabel>
+                                            <Textarea
+                                                {...field}
+                                                id={"frmRequest-action"}
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="symptom"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"changedParts"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-changedParts"}>
+                                                Penggantian parts (Kalau ada)
+                                            </FieldLabel>
+                                            <Textarea
+                                                {...field}
+                                                id={"frmRequest-changedParts"}
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="changedParts"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"sender"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-sender"}>
+                                                Cabang / SDSS / SSR / SASS
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-sender"}
+                                                type="text"
+                                                placeholder="Cabang <kota> / SASS <nama SASS>"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="sender"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"requestBy"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-requestBy"}>
+                                                Nama Pengirim
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-requestBy"}
+                                                type="text"
+                                                placeholder="Nama Anda"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="requestBy"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Controller
+                                    name={"requestByEmail"}
+                                    control={theForm.control}
+                                    render={({ field, fieldState }) => (
+                                        <Field data-invalid={fieldState.invalid}>
+                                            <FieldLabel htmlFor={"frmRequest-requestByEmail"}>
+                                                Email
+                                            </FieldLabel>
+                                            <Input
+                                                {...field}
+                                                id={"frmRequest-requestBy"}
+                                                type="email"
+                                                placeholder="Email"
+                                                aria-invalid={fieldState.invalid}
+                                                aria-label="requestByEmail"
+                                                className="w-full border border-gray-300 rounded px-3 py-2"
+                                            />
+                                            {fieldState.invalid && (
+                                                <FieldError errors={[fieldState.error]} />
+                                            )}
+                                        </Field>
+                                    )}
+                                />
+
+                                <Field orientation="horizontal" className="justify-center">
+                                    <Button
+                                        type="submit"
+                                        form="frmRequest"
+                                        //disabled={isPending}  // ✅ prevent double submit
+                                        className="bg-primary rounded-md w-1/2 cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-300"
+                                    >
+                                        <SaveIcon className="h-6 w-6" />
+                                        Save
+                                    </Button>
+                                </Field>
+                            </FieldGroup>
+                        </form>
+                    </CardContent>
+                </Card>
+            </main>
         </div>
-      </nav>
-
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold mb-6">Submit Job Request</h2>
-
-        {error && <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{error}</div>}
-
-        <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow">
-          <div className="grid grid-cols-1 gap-6">
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Kategori *
-              </label>
-              <select
-                name="categoryId"
-                value={formData.categoryId}
-                onChange={handleChange}
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              >
-                <option value="">Select Category</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name}</option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                No LR (Nomer Laporan Reparasi) *
-              </label>
-              <input
-                type="text"
-                name="notification"
-                value={formData.notification}
-                onChange={handleChange}
-                placeholder="Nomer Laporan Reparasi"
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Model Unit
-              </label>
-              <input
-                type="text"
-                name="model"
-                value={formData.model}
-                onChange={handleChange}
-                placeholder="Model"
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Nomer Seri
-              </label>
-              <input
-                type="text"
-                name="serialNumber"
-                value={formData.serialNumber}
-                onChange={handleChange}
-                placeholder="SN"
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Deskripsi (Keluhan/Kerusakan) *
-              </label>
-              <textarea
-                name="symptom"
-                value={formData.symptom}
-                onChange={handleChange}
-                placeholder="Tuliskan detail keluhan / kerusakan"
-                required
-                rows={4}
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Tindakan *
-              </label>
-              <textarea
-                name="actions"
-                value={formData.actions}
-                onChange={handleChange}
-                placeholder="Tuliskan tindakan apa yang sudah dilakukan"
-                required
-                rows={4}
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Part yang di ganti
-              </label>
-              <textarea
-                name="changedParts"
-                value={formData.changedParts}
-                onChange={handleChange}
-                placeholder="Part apa saja yang sudah di ganti (Jika ada)"
-                rows={3}
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Cabang/SDSS/SSR/SASS *
-              </label>
-              <input
-                type="text"
-                name="sender"
-                value={formData.sender}
-                onChange={handleChange}
-                placeholder="Nama Cabang, SDSS, SSR, atau SASS"
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-gray-700 font-semibold mb-2">
-                Nama *
-              </label>
-              <input
-                type="text"
-                name="requestBy"
-                value={formData.requestBy}
-                onChange={handleChange}
-                placeholder="Nama Anda"
-                required
-                className="w-full border border-gray-300 rounded px-3 py-2"
-              />
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                type="submit"
-                disabled={loading}
-                className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
-              >
-                {loading ? "Sending..." : "Kirim Request"}
-              </button>
-              <Link href="/" className="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                Cancel
-              </Link>
-            </div>
-          </div>
-        </form>
-      </main>
-    </div>
-  );
+    )
 }

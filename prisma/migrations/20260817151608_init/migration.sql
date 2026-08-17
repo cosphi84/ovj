@@ -30,6 +30,7 @@ CREATE TABLE "Job" (
     "changedParts" VARCHAR(255),
     "sender" TEXT NOT NULL,
     "requestBy" TEXT NOT NULL,
+    "requestByEmail" TEXT NOT NULL,
     "requestOn" TIMESTAMP(3) NOT NULL,
     "approvedBy" INTEGER,
     "approvedOn" TIMESTAMP(3),

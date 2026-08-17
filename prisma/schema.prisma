@@ -46,6 +46,7 @@ model Job {
   changedParts    String?  @db.VarChar(255)
   sender          String
   requestBy       String
+  requestByEmail  String
   requestOn       DateTime
 
   approvedBy      Int?

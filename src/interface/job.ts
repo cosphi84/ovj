@@ -1,5 +1,5 @@
 export interface Job {
-    id: string;
+    id: bigint;
 
     notification: string;
 
@@ -15,25 +15,25 @@ export interface Job {
 
     sender: string;
     requestBy: string;
-    requestOn: string;
+    requestOn: Date;
 
     approvedBy: number | null;
     approvedByUser?: {
         name: string;
     } | null;
-    approvedOn: string | null;
+    approvedOn: Date | null;
 
     receivedBy: number | null;
     receivedByUser?: {
         name: string;
     } | null;
-    receivedOn: string | null;
+    receivedOn: Date | null;
 
     handledBy: number | null;
     handledByUser?: {
         name: string;
     } | null;
-    handledOn: string | null;
+    handledOn: Date | null;
 
     actionTakenByTC: string | null;
     result: string | null;
@@ -42,7 +42,7 @@ export interface Job {
     sentBackByUser?: {
         name: string;
     } | null;
-    sendBackOn: string | null;
+    sendBackOn: Date | null;
 
     awbNumber: string | null;
 
@@ -50,5 +50,26 @@ export interface Job {
     completedByUser?: {
         name: string;
     } | null;
-    completedOn: string | null;
+    completedOn: Date | null;
+}
+
+export interface JobState {
+    canApprove: boolean;
+    canReceive: boolean;
+    canHandle: boolean;
+    canSendBack: boolean;
+    canComplete: boolean;
+}
+
+export interface JobRequest {
+    id: bigint;
+    notification: string;
+    model: string | null;
+    serialNumber: string | null;
+    symptom: string;
+    actions: string;
+    changedParts: string | null;
+    sender: string;
+    requestBy: string;
+    requestOn: Date;
 }
