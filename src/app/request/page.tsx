@@ -11,15 +11,54 @@ import { Textarea } from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {SaveIcon} from "lucide-react";
 import {Category} from "@/components/Categories";
+import { toast } from "@/components/ui/toast";
+import { useRouter } from "next/navigation";
 
 export default function JobRequestPage(){
+    const router = useRouter();
     const theForm = useForm<JobRequestFormValues>({
         resolver: zodResolver(JobRequestSchema),
         defaultValues: JobRequestFormDefaultValues
     });
 
-    const onSubmit = (v: JobRequestFormValues) => {
-        console.log(v)
+    const onSubmit = async (v: JobRequestFormValues) => {
+        const payload = JSON.stringify(v);
+        if (!confirm("Are you sure to submit this request?")) {
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/job", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: payload
+            });
+
+            if (!response.ok) {
+                toast.add({
+                    title: "Failed to submit request",
+                    description: "Please try again later.",
+                    type: "error"
+                });
+                return;
+            }
+
+            toast.add({
+                title: "Request submitted successfully",
+                description: "Your request has been submitted.",
+                type: "success"
+            }); 
+            router.push("/");
+        } catch (error) {
+            console.error("Failed to submit request:", error);
+            toast.add({
+                title: "Failed to submit request",
+                description: "Please try again later.",
+                type: "error"
+            });
+        }
     }
 
     return (

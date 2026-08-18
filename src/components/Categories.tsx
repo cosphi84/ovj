@@ -8,6 +8,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Capitalize } from "@/lib/format-helper";
 
 interface CategoryItem {
     id: number;
@@ -15,16 +16,12 @@ interface CategoryItem {
 }
 
 interface CategoryProps {
-    value: string;
-    onChange: (value: string) => void;
+    value: number;
+    onChange: (value: number | null) => void;
     disabled?: boolean;
 }
 
-export function Category({
-                             value,
-                             onChange,
-                             disabled = false,
-                         }: CategoryProps) {
+export function Category({value, onChange, disabled = false}: CategoryProps) {
     const [categories, setCategories] = React.useState<CategoryItem[]>([]);
     const [loading, setLoading] = React.useState(false);
 
@@ -69,12 +66,12 @@ export function Category({
             </SelectTrigger>
 
             <SelectContent>
-                {categories.map((category) => (
+                 {categories.map((category) => (
                     <SelectItem
                         key={category.id}
                         value={String(category.id)}
                     >
-                        {category.name}
+                        {Capitalize(category.name)}
                     </SelectItem>
                 ))}
             </SelectContent>
