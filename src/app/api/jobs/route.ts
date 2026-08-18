@@ -87,6 +87,7 @@ export async function POST(request: NextRequest) {
       changedParts,
       sender,
       requestBy,
+      requestByEmail,
     } = body;
 
     if (
@@ -114,6 +115,7 @@ export async function POST(request: NextRequest) {
         changedParts,
         sender,
         requestBy,
+        requestByEmail,
         requestOn: new Date(),
       },
     });
