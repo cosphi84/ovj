@@ -69,7 +69,7 @@ export function Category({value, onChange, disabled = false}: CategoryProps) {
                  {categories.map((category) => (
                     <SelectItem
                         key={category.id}
-                        value={String(category.id)}
+                        value={category.id}
                     >
                         {Capitalize(category.name)}
                     </SelectItem>

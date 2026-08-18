@@ -28,7 +28,7 @@ export default function JobRequestPage(){
         }
 
         try {
-            const response = await fetch("/api/job", {
+            const response = await fetch("/api/jobs", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -37,6 +37,7 @@ export default function JobRequestPage(){
             });
 
             if (!response.ok) {
+                console.log(response)
                 toast.add({
                     title: "Failed to submit request",
                     description: "Please try again later.",

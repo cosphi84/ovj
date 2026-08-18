@@ -94,9 +94,9 @@ export async function POST(request: NextRequest) {
       !categoryId ||
       !notification ||
       !symptom ||
-      !actions ||
       !sender ||
-      !requestBy
+      !requestBy ||
+      !requestByEmail
     ) {
       return NextResponse.json(
         { error: "Missing required fields" },
