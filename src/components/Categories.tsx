@@ -9,6 +9,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Capitalize } from "@/lib/format-helper";
+import { apiUrl } from "@/lib/api";
 
 interface CategoryItem {
     id: number;
@@ -30,7 +31,7 @@ export function Category({value, onChange, disabled = false}: CategoryProps) {
             try {
                 setLoading(true);
 
-                const response = await fetch("/api/categories");
+                const response = await fetch(apiUrl("/api/categories"));
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch categories");

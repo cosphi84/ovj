@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Pagination } from "@/components/Pagination";
+import { apiUrl } from "@/lib/api";
 
 interface Job {
   id: string;
@@ -31,7 +32,7 @@ export default function Home() {
     setLoading(true);
     try {
       const response = await fetch(
-        `/api/jobs?page=${currentPage}&limit=${ITEMS_PER_PAGE}&active=true`
+        apiUrl(`/api/jobs?page=${currentPage}&limit=${ITEMS_PER_PAGE}&active=true`)
       );
       const data = await response.json();
       setJobs(data.jobs);
