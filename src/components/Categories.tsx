@@ -40,7 +40,7 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
         }
         fetchCategories();
         console.log("Categories fetched:", categories);
-    }, [categories]);
+    }, []);
     
     return (
         <Select
