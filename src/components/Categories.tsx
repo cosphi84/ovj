@@ -10,52 +10,32 @@ import {
 } from "@/components/ui/select";
 
 interface CategoryProps {
-    value: number;
+    value: number | null;
     onChange: (value: number | null) => void;
 }
 
-export function Category({value, onChange}: CategoryProps) {
-    /*
-    const [categories, setCategories] = React.useState<CategoryItem[]>([]);
-    const [loading, setLoading] = React.useState(false);
+const CATEGORY_OPTIONS = [
+    { value: 1, label: "Over Job to TC" },
+    { value: 2, label: "Request Job to TC" },
+];
 
-    React.useEffect(() => {
-        async function fetchCategories() {
-            try {
-                setLoading(true);
-
-                const response = await fetch(apiUrl("/api/categories"));
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch categories");
-                }
-
-                const data: CategoryItem[] = await response.json();
-
-                setCategories(data);
-            } catch (error) {
-                console.error("Failed to fetch categories:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchCategories();
-    }, []);
-    */
+export function Category({ value, onChange }: CategoryProps) {
     return (
         <Select
-            value={value}
-            onValueChange={onChange}
+            value={value !== null ? String(value) : undefined}
+            onValueChange={(val) => onChange(val ? Number(val) : null)}
         >
             <SelectTrigger>
-                <SelectValue placeholder="Select category"/>
+                <SelectValue placeholder="Select category" />
             </SelectTrigger>
 
             <SelectContent>
                 <SelectGroup>
-                    <SelectItem value={1}>Over Job to TC</SelectItem>
-                    <SelectItem value={2}>Request Job to TC</SelectItem>
+                    {CATEGORY_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={String(opt.value)}>
+                            {opt.label}
+                        </SelectItem>
+                    ))}
                 </SelectGroup>
             </SelectContent>
         </Select>
