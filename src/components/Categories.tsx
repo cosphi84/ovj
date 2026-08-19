@@ -25,7 +25,7 @@ const CATEGORY_OPTIONS = [
 export function SelectCategory({ value, onChange }: CategoryProps) {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(false);
-    
+
     useEffect(() => {
         async function fetchCategories() {
             setLoading(true);
@@ -35,13 +35,14 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
                 setCategories(data);
             } catch (error) {
                 console.error("Failed to fetch categories:", error);
-            } 
-            setLoading(false);
+            } finally {
+                setLoading(false);
+            }
         }
         fetchCategories();
-        console.log("Categories fetched:", categories);
-    }, []);
+    }, []); 
     
+    console.log("Fetched categories:", categories);
     return (
         <Select
             value={value !== null ? String(value) : undefined}
