@@ -13,6 +13,7 @@ import {SaveIcon} from "lucide-react";
 import {Category} from "@/components/Categories";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
+import { apiUrl } from "@/lib/api";
 
 export default function JobRequestPage(){
     const router = useRouter();
@@ -28,7 +29,7 @@ export default function JobRequestPage(){
         }
 
         try {
-            const response = await fetch("/api/jobs", {
+            const response = await fetch(apiUrl("/api/jobs"), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
