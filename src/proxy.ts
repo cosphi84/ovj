@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { jwtVerify } from "./lib/jwt";
+import { apiUrl } from "./lib/api";
 
 export async function proxy(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
     // Allow login page
-    if (pathname === "/admin/login") {
+    if (pathname === apiUrl("/admin/login")) {
         return NextResponse.next();
     }
 
@@ -14,7 +15,7 @@ export async function proxy(request: NextRequest) {
 
     if (!token) {
         return NextResponse.redirect(
-            new URL("/admin/login", request.url)
+            new URL(apiUrl("/admin/login"), request.url)
         );
     }
 
@@ -23,11 +24,11 @@ export async function proxy(request: NextRequest) {
         return NextResponse.next();
     } catch {
         return NextResponse.redirect(
-            new URL("/admin/login", request.url)
+            new URL(apiUrl("/admin/login"), request.url)
         );
     }
 }
 
 export const config = {
-    matcher: ["/admin/:path*"],
+    matcher: [apiUrl("/admin/:path*"), apiUrl("/admin")],
 };
