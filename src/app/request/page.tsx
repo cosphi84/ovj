@@ -10,7 +10,7 @@ import {Input} from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {Button} from "@/components/ui/button";
 import {SaveIcon} from "lucide-react";
-import {Category} from "@/components/Categories";
+import { SelectCategory } from "@/components/Categories";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/api";
@@ -91,7 +91,7 @@ export default function JobRequestPage(){
                                                 Category
                                             </FieldLabel>
 
-                                            <Category
+                                            <SelectCategory
                                                 value={field.value}
                                                 onChange={field.onChange}
                                             />

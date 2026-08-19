@@ -8,6 +8,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { apiUrl } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { Category } from "@/interface/category";
 
 interface CategoryProps {
     value: number | null;
@@ -19,7 +22,26 @@ const CATEGORY_OPTIONS = [
     { value: 2, label: "Request Job to TC" },
 ];
 
-export function Category({ value, onChange }: CategoryProps) {
+export function SelectCategory({ value, onChange }: CategoryProps) {
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(false);
+    
+    useEffect(() => {
+        async function fetchCategories() {
+            setLoading(true);
+            try {
+                const response = await fetch(apiUrl("/api/categories"));
+                const data = await response.json();
+                setCategories(data.categories);
+            } catch (error) {
+                console.error("Failed to fetch categories:", error);
+            } 
+            setLoading(false);
+        }
+        fetchCategories();
+        console.log("Categories fetched:", categories);
+    }, [categories]);
+    
     return (
         <Select
             value={value !== null ? String(value) : undefined}

@@ -25,10 +25,8 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchJobs();
-  }, [currentPage]);
 
-  async function fetchJobs() {
+    async function fetchJobs() {
     setLoading(true);
     try {
       const response = await fetch(
@@ -42,6 +40,11 @@ export default function Home() {
     }
     setLoading(false);
   }
+  
+    fetchJobs();
+  }, [currentPage]);
+
+  
 
   return (
     <div className="min-h-screen bg-gray-50">

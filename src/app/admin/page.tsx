@@ -33,10 +33,8 @@ export default function AdminDashboard() {
   const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
-    fetchJobs();
-  }, [currentPage, status]);
 
-  async function fetchJobs() {
+     async function fetchJobs() {
     setLoading(true);
     try {
       const active = status === "Active" ? "true" : "false";
@@ -51,6 +49,9 @@ export default function AdminDashboard() {
     }
     setLoading(false);
   }
+    fetchJobs();
+  }, [currentPage, status]);
+
 
   async function handleSearch(e: React.FormEvent) {
     e.preventDefault();
