@@ -3,6 +3,7 @@
 import {
     Select,
     SelectContent,
+    SelectGroup,
     SelectItem,
     SelectTrigger,
     SelectValue,
@@ -52,9 +53,11 @@ export function Category({value, onChange}: CategoryProps) {
             </SelectTrigger>
 
             <SelectContent>
-                 <SelectItem value={1}>Over Job to TC</SelectItem>
-                 <SelectItem value={2}>Request Job to TC</SelectItem>
+                <SelectGroup>
+                    <SelectItem value={1}>Over Job to TC</SelectItem>
+                    <SelectItem value={2}>Request Job to TC</SelectItem>
+                </SelectGroup>
             </SelectContent>
         </Select>
     );
-} 
+}
