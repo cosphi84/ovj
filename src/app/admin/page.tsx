@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Pagination } from "@/components/Pagination";
+import { apiUrl } from "@/lib/api";
 
 interface Job {
   id: string;
@@ -39,8 +40,8 @@ export default function AdminDashboard() {
     setLoading(true);
     try {
       const active = status === "Active" ? "true" : "false";
-      const response = await fetch(
-        `/api/jobs?page=${currentPage}&limit=${ITEMS_PER_PAGE}&active=${active}`
+      const response = await fetch(apiUrl(
+        `/api/jobs?page=${currentPage}&limit=${ITEMS_PER_PAGE}&active=${active}`)
       );
       const data = await response.json();
       setJobs(data.jobs);
@@ -62,7 +63,7 @@ export default function AdminDashboard() {
     setExporting(true);
     try {
       const active = status === "Active" ? "true" : "false";
-      const response = await fetch(`/api/export?active=${active}`);
+      const response = await fetch(apiUrl(`/api/export?active=${active}`));
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
@@ -78,7 +79,7 @@ export default function AdminDashboard() {
   }
 
   async function handleLogout() {
-    await fetch("/api/auth/logout", { method: "POST" });
+    await fetch(apiUrl("/api/auth/logout"), { method: "POST" });
     router.push("/admin/login");
   }
 
