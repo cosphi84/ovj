@@ -1,63 +1,39 @@
-"use client";
-
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { apiUrl } from "@/lib/api";
-import { useEffect, useState } from "react";
-import { Category } from "@/interface/category";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-interface CategoryProps {
-    value: number | null;
-    onChange: (value: number | null) => void;
-}
+const items = [
+  { label: "Select a fruit", value: null },
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Blueberry", value: "blueberry" },
+]
 
-export function SelectCategory({ value, onChange }: CategoryProps) {
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState(false);
-
-    useEffect(() => {
-        async function fetchCategories() {
-            setLoading(true);
-            try {
-                const response = await fetch(apiUrl("/api/categories"));
-                const data = await response.json();
-                setCategories(data);
-            } catch (error) {
-                console.error("Failed to fetch categories:", error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchCategories();
-    }, []); 
-    
-    return (
-        <Select
-            value={value !== null ? String(value) : undefined}
-        >
-            <SelectTrigger>
-                <SelectValue placeholder="Select category" />
-            </SelectTrigger>
-
-            <SelectContent>
-                <SelectGroup>
-                    { loading ? (
-                        <SelectItem value="">Loading...</SelectItem>
-                    ) : (
-                        categories.map((category) => (
-                            <SelectItem key={category.id} value={String(category.id)}>
-                                {category.name}
-                            </SelectItem>
-                        ))
-                    )}
-                </SelectGroup>
-            </SelectContent>
-        </Select>
-    );
+export function SelectInvalid() {
+  return (
+    <Field data-invalid className="w-full max-w-48">
+      <FieldLabel>Fruit</FieldLabel>
+      <Select items={items}>
+        <SelectTrigger aria-invalid>
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {items.map((item) => (
+              <SelectItem key={item.value} value={item.value}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <FieldError>Please select a fruit.</FieldError>
+    </Field>
+  )
 }
