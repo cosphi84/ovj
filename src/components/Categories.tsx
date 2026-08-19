@@ -1,39 +1,67 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field"
+"use client";
+
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { apiUrl } from "@/lib/api";
+import { useEffect, useState } from "react";
+import { Category } from "@/interface/category";
 
-const items = [
-  { label: "Select a fruit", value: null },
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-  { label: "Blueberry", value: "blueberry" },
-]
+interface CategoryProps {
+    value: number | null;
+    onChange: (value: number | null) => void;
+}
 
-export function SelectInvalid() {
-  return (
-    <Field data-invalid className="w-full max-w-48">
-      <FieldLabel>Fruit</FieldLabel>
-      <Select items={items}>
-        <SelectTrigger aria-invalid>
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {items.map((item) => (
-              <SelectItem key={item.value} value={item.value}>
-                {item.label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <FieldError>Please select a fruit.</FieldError>
-    </Field>
-  )
+const CATEGORY_OPTIONS = [
+    { value: 1, label: "Over Job to TC" },
+    { value: 2, label: "Request Job to TC" },
+];
+
+export function SelectCategory({ value, onChange }: CategoryProps) {
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(false);
+    
+    useEffect(() => {
+        async function fetchCategories() {
+            setLoading(true);
+            try {
+                const response = await fetch(apiUrl("/api/categories"));
+                const data = await response.json();
+                setCategories(data);
+            } catch (error) {
+                console.error("Failed to fetch categories:", error);
+            } 
+            setLoading(false);
+        }
+        fetchCategories();
+    }, []);
+    
+    return (
+        <Select
+            value={value !== null ? String(value) : undefined}
+            onValueChange={(val) => onChange(val ? Number(val) : null)}
+            items={categories.map((category) => ({
+                value: String(category.id),
+                label: category.name,
+            }))}>
+            <SelectTrigger>
+                <SelectValue placeholder="Select category" />
+            </SelectTrigger>
+
+            <SelectContent>
+                <SelectGroup>
+                    {CATEGORY_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={String(opt.value)}>
+                            {opt.label}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    );
 }
