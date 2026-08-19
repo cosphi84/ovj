@@ -17,11 +17,6 @@ interface CategoryProps {
     onChange: (value: number | null) => void;
 }
 
-const CATEGORY_OPTIONS = [
-    { value: 1, label: "Over Job to TC" },
-    { value: 2, label: "Request Job to TC" },
-];
-
 export function SelectCategory({ value, onChange }: CategoryProps) {
     const [categories, setCategories] = useState<Category[]>([]);
     const [loading, setLoading] = useState(false);
@@ -42,7 +37,6 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
         fetchCategories();
     }, []); 
     
-    console.log("Fetched categories:", categories);
     return (
         <Select
             value={value !== null ? String(value) : undefined}
@@ -54,11 +48,15 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
 
             <SelectContent>
                 <SelectGroup>
-                    {CATEGORY_OPTIONS.map((opt) => (
-                        <SelectItem key={opt.value} value={String(opt.value)}>
-                            {opt.label}
-                        </SelectItem>
-                    ))}
+                    { loading ? (
+                        <SelectItem value="">Loading...</SelectItem>
+                    ) : (
+                        categories.map((category) => (
+                            <SelectItem key={category.id} value={String(category.id)}>
+                                {category.name}
+                            </SelectItem>
+                        ))
+                    )}
                 </SelectGroup>
             </SelectContent>
         </Select>
