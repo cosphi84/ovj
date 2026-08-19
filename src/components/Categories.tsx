@@ -17,10 +17,6 @@ interface CategoryProps {
     onChange: (value: number | null) => void;
 }
 
-const CATEGORY_OPTIONS = [
-    { value: 1, label: "Over Job to TC" },
-    { value: 2, label: "Request Job to TC" },
-];
 
 export function SelectCategory({ value, onChange }: CategoryProps) {
     const [categories, setCategories] = useState<Category[]>([]);
