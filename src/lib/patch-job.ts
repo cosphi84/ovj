@@ -1,8 +1,10 @@
+import { apiUrl } from "./api";
+
 export async function patchJob(
     jobId: bigint,
     payload: { action: string; [key: string]: unknown }
 ) {
-    const res = await fetch(`/api/jobs/${jobId}`, {
+    const res = await fetch(apiUrl(`/api/jobs/${jobId}`), {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
