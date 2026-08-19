@@ -36,14 +36,16 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
         }
         fetchCategories();
     }, []);
-    
+
+    console.log(value);
     let strValue : string | undefined = "";
     if (value !== null ||  value !== 0) {
         strValue = String(value);
+    }else{
+        strValue = "";
     }
     return (
         <Select
-            value={strValue}
             onValueChange={(val) => onChange(val ? Number(val) : null)}
             items={categories.map((category) => ({
                 value: String(category.id),

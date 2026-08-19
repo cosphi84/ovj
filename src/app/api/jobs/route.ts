@@ -104,6 +104,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+
     const job = await prisma.job.create({
       data: {
         categoryId: parseInt(categoryId),

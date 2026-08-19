@@ -37,14 +37,17 @@ export default function JobRequestPage(){
                 body: payload
             });
 
+            const res = await response.json();
+
             if (!response.ok) {
-                console.log(response)
+                console.log(response.body)
                 toast.add({
                     title: "Failed to submit request",
-                    description: "Please try again later.",
+                    description: `${res?.error}`,
                     type: "error"
                 });
                 return;
+
             }
 
             toast.add({
@@ -57,7 +60,7 @@ export default function JobRequestPage(){
             console.error("Failed to submit request:", error);
             toast.add({
                 title: "Failed to submit request",
-                description: "Please try again later.",
+                description: `${error}`,
                 type: "error"
             });
         }
