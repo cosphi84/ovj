@@ -40,7 +40,6 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
     return (
         <Select
             value={value !== null ? String(value) : undefined}
-            onValueChange={(val) => onChange(val ? Number(val) : null)}
         >
             <SelectTrigger>
                 <SelectValue placeholder="Select category" />
