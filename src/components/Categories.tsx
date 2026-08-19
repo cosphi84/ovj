@@ -37,9 +37,13 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
         fetchCategories();
     }, []);
     
+    let strValue : string | undefined = "";
+    if (value !== null ||  value !== 0) {
+        strValue = String(value);
+    }
     return (
         <Select
-            value={value !== null ? String(value) : undefined}
+            value={strValue}
             onValueChange={(val) => onChange(val ? Number(val) : null)}
             items={categories.map((category) => ({
                 value: String(category.id),
