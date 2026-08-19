@@ -55,11 +55,15 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
 
             <SelectContent>
                 <SelectGroup>
-                    {CATEGORY_OPTIONS.map((opt) => (
-                        <SelectItem key={opt.value} value={String(opt.value)}>
-                            {opt.label}
-                        </SelectItem>
-                    ))}
+                    {loading ? (
+                        <SelectItem value="">Loading...</SelectItem>
+                    ) : ( 
+                        categories.map((category) => (
+                            <SelectItem key={category.id} value={String(category.id)}>
+                                {category.name}
+                            </SelectItem>
+                        ))
+                    )} 
                 </SelectGroup>
             </SelectContent>
         </Select>
