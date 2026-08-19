@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import {
     Select,
     SelectContent,
@@ -8,21 +7,14 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { Capitalize } from "@/lib/format-helper";
-import { apiUrl } from "@/lib/api";
-
-interface CategoryItem {
-    id: number;
-    name: string;
-}
 
 interface CategoryProps {
     value: number;
     onChange: (value: number | null) => void;
-    disabled?: boolean;
 }
 
-export function Category({value, onChange, disabled = false}: CategoryProps) {
+export function Category({value, onChange}: CategoryProps) {
+    /*
     const [categories, setCategories] = React.useState<CategoryItem[]>([]);
     const [loading, setLoading] = React.useState(false);
 
@@ -49,33 +41,20 @@ export function Category({value, onChange, disabled = false}: CategoryProps) {
 
         fetchCategories();
     }, []);
-
+    */
     return (
         <Select
             value={value}
             onValueChange={onChange}
-            disabled={disabled || loading}
         >
             <SelectTrigger>
-                <SelectValue
-                    placeholder={
-                        loading
-                            ? "Loading categories..."
-                            : "Select category"
-                    }
-                />
+                <SelectValue placeholder="Select category"/>
             </SelectTrigger>
 
             <SelectContent>
-                 {categories.map((category) => (
-                    <SelectItem
-                        key={category.id}
-                        value={category.id}
-                    >
-                        {Capitalize(category.name)}
-                    </SelectItem>
-                ))}
+                 <SelectItem value={1}>Over Job to TC</SelectItem>
+                 <SelectItem value={2}>Request Job to TC</SelectItem>
             </SelectContent>
         </Select>
     );
-}
+} 
