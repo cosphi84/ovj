@@ -32,7 +32,7 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
             try {
                 const response = await fetch(apiUrl("/api/categories"));
                 const data = await response.json();
-                setCategories(data.categories);
+                setCategories(data);
             } catch (error) {
                 console.error("Failed to fetch categories:", error);
             } 
