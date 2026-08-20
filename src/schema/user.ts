@@ -16,7 +16,7 @@ export const UserFormDefaultValues = {
     name: "",
     email: "",
     password: "",
-    active: "1"
+    active: true
 }
 
 export const ApiUrlUser = apiUrl("/api/users");
