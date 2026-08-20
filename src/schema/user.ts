@@ -18,3 +18,4 @@ export const UserFormDefaultValues = {
 }
 
 export const ApiUrlUser = apiUrl("/api/users");
+export const ApiUrlUserEdit = (id: number) => apiUrl(`/api/users/${id}`);

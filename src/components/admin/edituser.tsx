@@ -1,18 +1,23 @@
 "use client"
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
-import { toast } from "@/components/ui/toast";
-import { ApiUrlUser, UserFormDefaultValues, UserFormValues, UserSchema } from "@/schema/user";
+import { UserProfile } from "@/interface/user"
+import { ApiUrlUserEdit, UserFormDefaultValues, UserFormValues, UserSchema } from "@/schema/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SaveIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "../ui/toast";
+import { useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
+import { Input } from "../ui/input";
+import { Switch } from "../ui/switch";
+import { Button } from "../ui/button";
+import { EditIcon } from "lucide-react";
 
-export default function AddUserPage(){
+type Props = {
+    user: UserProfile;
+}
+
+export default function EditUser({ user }: Props){
     const router = useRouter();
     const usrForm = useForm<UserFormValues>({
         resolver: zodResolver(UserSchema),
@@ -22,14 +27,14 @@ export default function AddUserPage(){
     const onSubmit = async (u: UserFormValues) => {
         const payload = JSON.stringify(u);
 
-        if(!confirm("Save and create new user?"))
+        if(!confirm("Save the user?"))
         {
             return;
         }
 
         try{
-            const response = await fetch(ApiUrlUser, {
-                method: "POST",
+            const response = await fetch(ApiUrlUserEdit(user.id), {
+                method: "PATCH",
                 headers: {
                     "Content-Type": "Appliction/json"
                 },
@@ -170,7 +175,7 @@ export default function AddUserPage(){
                                         //disabled={isPending}  // ✅ prevent double submit
                                         className="bg-primary rounded-md w-1/2 cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-300"
                                     >
-                                        <SaveIcon className="h-6 w-6" />
+                                        <EditIcon className="h-6 w-6" />
                                         Save
                                     </Button>
                                 </Field>
@@ -178,5 +183,5 @@ export default function AddUserPage(){
                 </form>
             </CardContent>
         </Card>
-    );
+    )
 }
