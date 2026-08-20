@@ -38,11 +38,11 @@ export default function AddUserPage(){
 
             const res = await response.json();
 
-            if(!res.ok){
+            if(!response.ok){
                 toast.add({
                     title: "Error on create new User",
                     type: "error",
-                    description: `Error: {res?.error}`
+                    description: `Error: ${res?.error}`
                 });
                 return;
             }
@@ -166,14 +166,14 @@ export default function AddUserPage(){
                         <Field orientation="horizontal" className="justify-center">
                                     <Button
                                         type="submit"
-                                        form="usrForm"
+                                        form="frmUser"
                                         //disabled={isPending}  // ✅ prevent double submit
                                         className="bg-primary rounded-md w-1/2 cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-300"
                                     >
                                         <SaveIcon className="h-6 w-6" />
                                         Save
                                     </Button>
-                                </Field>s
+                                </Field>
                     </FieldGroup>
                 </form>
             </CardContent>
