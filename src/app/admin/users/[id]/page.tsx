@@ -1,6 +1,6 @@
 import EditUser from "@/components/admin/edituser";
 import { UserProfile } from "@/interface/user";
-import { ApiUrlUserEdit } from "@/schema/user";
+import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
 export default async function EditUserPage({
@@ -9,23 +9,29 @@ export default async function EditUserPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = await params;
-    const theId = Number(id);
+    const userId = Number(id);
 
-    if (isNaN(theId)) {
+    if (isNaN(userId)) {
         notFound();
     }
 
-    const response = await fetch(ApiUrlUserEdit(theId));
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        },
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            active: true,
+        },
+    });
 
-    if (!response.ok) {
-        if (response.status === 404) {
-            notFound();
-        }
-
-        throw new Error("Failed to fetch user");
+    if (!user) {
+        notFound();
     }
 
-    const usr: UserProfile = await response.json();
+    const usr: UserProfile = user;
 
     return <EditUser user={usr} />;
 }
