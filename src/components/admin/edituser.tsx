@@ -38,7 +38,7 @@ export default function EditUser({ user }: Props){
 
         try{
             const response = await fetch(ApiUrlUserEdit(user.id), {
-                method: "POST",
+                method: "PATCH",
                 headers: {
                     "Content-Type": "Appliction/json"
                 },
