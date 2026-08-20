@@ -8,7 +8,8 @@ import { toast } from "@/components/ui/toast";
 import { UserProfile } from "@/interface/user";
 import { Capitalize } from "@/lib/format-helper";
 import { ApiUrlUser } from "@/schema/user";
-import { use, useEffect, useState } from "react";
+import { Link, Plus } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function UsersAdminPage() {
     const [users, setUser] = useState<UserProfile[]>([]);
@@ -38,10 +39,15 @@ export default function UsersAdminPage() {
     return (
         <Card className="min-h-screen bg-gray-50">
             <CardHeader>
-            <nav className="bg-white shadow">
+            <nav className="bg-white shadow justify-between">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-                <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+                    <h1 className="text-2xl font-bold">Admin Dashboard</h1>
                 </div>
+                <Button variant={"link"}>
+                    <Link href="users/add">
+                        <Plus/> New User
+                    </Link>
+                </Button>
             </nav>
             </CardHeader>
             <CardContent className="max-w-7xl mx-auto px-4 py-8">
