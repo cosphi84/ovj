@@ -7,6 +7,6 @@ export interface UserProfile {
     id: number;
     name: string;
     email: string;
-    password: string;
-    active: string;
+    password?: string;
+    active: boolean;
 }
