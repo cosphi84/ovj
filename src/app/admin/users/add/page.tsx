@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -7,6 +8,7 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "@/components/ui/toast";
 import { ApiUrlUser, UserFormDefaultValues, UserFormValues, UserSchema } from "@/schema/user";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { SaveIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
@@ -160,7 +162,18 @@ export default function AddUserPage(){
                                 </Field>
                             )}
                             />
-
+                        
+                        <Field orientation="horizontal" className="justify-center">
+                                    <Button
+                                        type="submit"
+                                        form="usrForm"
+                                        //disabled={isPending}  // ✅ prevent double submit
+                                        className="bg-primary rounded-md w-1/2 cursor-pointer hover:bg-gray-700 dark:hover:bg-gray-300"
+                                    >
+                                        <SaveIcon className="h-6 w-6" />
+                                        Save
+                                    </Button>
+                                </Field>s
                     </FieldGroup>
                 </form>
             </CardContent>

@@ -39,15 +39,16 @@ export default function UsersAdminPage() {
     return (
         <Card className="min-h-screen bg-gray-50">
             <CardHeader>
-            <nav className="bg-white shadow justify-between">
+            <nav className="bg-white shadow">
                 <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
                     <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-                </div>
-                <Button variant={"link"}>
+                    <Button variant={"link"}>
                     <Link href="users/add">
                         <Plus/> New User
                     </Link>
                 </Button>
+                </div>
+                
             </nav>
             </CardHeader>
             <CardContent className="max-w-7xl mx-auto px-4 py-8">
