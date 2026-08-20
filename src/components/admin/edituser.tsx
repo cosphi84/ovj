@@ -28,7 +28,7 @@ export default function EditUser({ user }: Props){
         }
     });
 
-    const onSubmit = async (u: UserFormValues) => {
+    const onSubmit = async (u: UserEditFormValues) => {
         const payload = JSON.stringify(u);
 
         if(!confirm("Save the user?"))
@@ -82,7 +82,7 @@ export default function EditUser({ user }: Props){
                         <Controller
                             name="name"
                             control={usrForm.control}
-                            render={({ field, fieldState}) => (
+                            render={({ field, fieldState}) => ( 
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="usrForm-name">Name</FieldLabel>
 
