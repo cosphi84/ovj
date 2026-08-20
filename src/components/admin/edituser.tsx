@@ -1,7 +1,7 @@
 "use client"
 
 import { UserProfile } from "@/interface/user"
-import { ApiUrlUserEdit, UserFormDefaultValues, UserFormValues, UserSchema } from "@/schema/user";
+import { ApiUrlUserEdit,  UserFormValues, UserSchema } from "@/schema/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "../ui/toast";
@@ -21,7 +21,11 @@ export default function EditUser({ user }: Props){
     const router = useRouter();
     const usrForm = useForm<UserFormValues>({
         resolver: zodResolver(UserSchema),
-        defaultValues: UserFormDefaultValues
+        defaultValues: {
+            name: user.name,
+            email: user.email,
+            active: user.active
+        }
     });
 
     const onSubmit = async (u: UserFormValues) => {
@@ -34,7 +38,7 @@ export default function EditUser({ user }: Props){
 
         try{
             const response = await fetch(ApiUrlUserEdit(user.id), {
-                method: "PATCH",
+                method: "POST",
                 headers: {
                     "Content-Type": "Appliction/json"
                 },
