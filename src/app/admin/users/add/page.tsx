@@ -144,16 +144,17 @@ export default function AddUserPage(){
                         />
 
                          <Controller
-                            name="password"
+                            name="active"
                             control={usrForm.control}
                             render={({ field, fieldState}) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="usrForm-active">Active</FieldLabel>
 
                                     <Switch
-                                    {...field}
+                                   
                                     id="usrForm-active"
-                                    value={field.value}
+                                    checked={field.value}
+                                    onCheckedChange={field.onChange}
                                     />
 
                                     { fieldState.invalid && (
