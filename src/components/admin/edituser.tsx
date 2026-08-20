@@ -1,7 +1,7 @@
 "use client"
 
 import { UserProfile } from "@/interface/user"
-import { ApiUrlUserEdit,  UserFormValues, UserSchema } from "@/schema/user";
+import { ApiUrlUserEdit,  UserEditFormValues,  UserEditSchema,  UserFormValues, UserSchema } from "@/schema/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "../ui/toast";
@@ -19,8 +19,8 @@ type Props = {
 
 export default function EditUser({ user }: Props){
     const router = useRouter();
-    const usrForm = useForm<UserFormValues>({
-        resolver: zodResolver(UserSchema),
+    const usrForm = useForm<UserEditFormValues>({
+        resolver: zodResolver(UserEditSchema),
         defaultValues: {
             name: user.name,
             email: user.email,
@@ -163,6 +163,7 @@ export default function EditUser({ user }: Props){
                                     {...field}
                                     id="usrForm-active"
                                     value={field.value}
+                                    
                                     />
 
                                     { fieldState.invalid && (
