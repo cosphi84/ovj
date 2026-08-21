@@ -90,7 +90,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor="frmRequest-category">
+                                            <FieldLabel htmlFor="categoryId">
                                                 Category
                                             </FieldLabel>
 
@@ -111,7 +111,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-notification"}>
+                                            <FieldLabel htmlFor={"notification"}>
                                                 Notification
                                             </FieldLabel>
                                             <Input
@@ -136,7 +136,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-model"}>
+                                            <FieldLabel htmlFor={"model"}>
                                                 Model
                                             </FieldLabel>
                                             <Input
@@ -160,7 +160,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-serialNumber"}>
+                                            <FieldLabel htmlFor={"serialNumber"}>
                                                 serial Number
                                             </FieldLabel>
                                             <Input
@@ -184,7 +184,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-symptom"}>
+                                            <FieldLabel htmlFor={"symptom"}>
                                                 Keluhan / Kerusakan
                                             </FieldLabel>
                                             <Input
@@ -208,7 +208,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-action"}>
+                                            <FieldLabel htmlFor={"actions"}>
                                                 Tindakan yang sudah di ambil
                                             </FieldLabel>
                                             <Textarea
@@ -230,7 +230,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-changedParts"}>
+                                            <FieldLabel htmlFor={"changedParts"}>
                                                 Penggantian parts (Kalau ada)
                                             </FieldLabel>
                                             <Textarea
@@ -252,7 +252,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-sender"}>
+                                            <FieldLabel htmlFor={"sender"}>
                                                 Cabang / SDSS / SSR / SASS
                                             </FieldLabel>
                                             <Input
@@ -276,7 +276,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-requestBy"}>
+                                            <FieldLabel htmlFor={"requestBy"}>
                                                 Nama Pengirim
                                             </FieldLabel>
                                             <Input
@@ -300,7 +300,7 @@ export default function JobRequestPage(){
                                     control={theForm.control}
                                     render={({ field, fieldState }) => (
                                         <Field data-invalid={fieldState.invalid}>
-                                            <FieldLabel htmlFor={"frmRequest-requestByEmail"}>
+                                            <FieldLabel htmlFor={"requestByEmail"}>
                                                 Email
                                             </FieldLabel>
                                             <Input

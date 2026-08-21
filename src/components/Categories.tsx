@@ -14,7 +14,7 @@ import { Category } from "@/interface/category";
 import { toast } from "./ui/toast";
 
 interface CategoryProps {
-    value: number;
+    value?: number;
     onChange: (value: number) => void;
 }
 
