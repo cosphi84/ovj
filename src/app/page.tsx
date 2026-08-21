@@ -96,7 +96,7 @@ export default function Home() {
                 <tbody>
                   {jobs.map((job) => (
                     <tr key={job.id} className="hover:bg-gray-100">
-                      <td className="border p-2">
+                      <td className="border p-2 items-center">
                         <Link
                           href={`/detail/${job.id}`}
                           className="text-blue-500 hover:underline"

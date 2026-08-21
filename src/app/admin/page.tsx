@@ -169,7 +169,7 @@ export default function AdminDashboard() {
                     <tr key={job.id} className="hover:bg-gray-100">
                       <td className="border p-2">
                         <Link
-                          href={`/detail/${job.id}`}
+                          href={`/admin/detail/${job.id}`}
                           className="text-blue-500 hover:underline"
                         >
                           {job.id}

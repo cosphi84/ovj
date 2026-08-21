@@ -145,10 +145,14 @@ export default function HandleByModal({
                                             Result
                                         </FieldLabel>
                                             <RadioGroup defaultValue={field.value}>
-                                                <RadioGroupItem value={"OK"} id="OK"/ >
-                                                <Label htmlFor="OK">OK</Label>
-                                                <RadioGroupItem value={"NG"} id="NG" />
-                                                <Label htmlFor="NG">NG</Label>
+                                                <div className="flex items-center gap-3">
+                                                    <RadioGroupItem value={"OK"} id="OK"/ >
+                                                    <Label htmlFor="OK">OK</Label>
+                                                </div>
+                                                <div className="flex items-center gap-3">
+                                                    <RadioGroupItem value={"FAILED"} id="FAILED" />
+                                                    <Label htmlFor="FAILED">FAILED</Label>
+                                                </div>
                                             </RadioGroup>
 
                                         { fieldState.invalid && (
