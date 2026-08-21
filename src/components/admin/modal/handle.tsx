@@ -144,7 +144,7 @@ export default function HandleByModal({
                                         <FieldLabel htmlFor="result">
                                             Result
                                         </FieldLabel>
-                                            <RadioGroup defaultValue={field.value}>
+                                            <RadioGroup value={field.value} onValueChange={field.onChange}>
                                                 <div className="flex items-center gap-3">
                                                     <RadioGroupItem value={"OK"} id="OK"/ >
                                                     <Label htmlFor="OK">OK</Label>
