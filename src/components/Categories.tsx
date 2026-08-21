@@ -14,8 +14,8 @@ import { Category } from "@/interface/category";
 import { toast } from "./ui/toast";
 
 interface CategoryProps {
-    value: number | null;
-    onChange: (value: number | null) => void;
+    value: number;
+    onChange: (value: number) => void;
 }
 
 
@@ -46,7 +46,7 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
     
     return (
         <Select
-            onValueChange={(val) => onChange(val ? Number(val) : null)}
+            onValueChange={(val) => onChange(val ? Number(val) : 0)}
             defaultValue={value}
             items={categories.map((category) => ({
                 value: String(category.id),

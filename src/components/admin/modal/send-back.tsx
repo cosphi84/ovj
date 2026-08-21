@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/components/ui/toast";
+import UsersSelect from "@/components/Users";
 import { Job } from "@/interface/job";
 import { patchJob } from "@/lib/patch-job";
 import { SendBackDefaultFormValue, SendBackFormValue, SendBackJobSchema } from "@/schema/sendback";
@@ -25,6 +26,7 @@ export default function SendBack({ job, open, onOpenChange }: Props){
     const handleSubmit = async (v: SendBackFormValue) => {
         const payload = {
             sendbackOn: v.sendbackOn,
+            sendbackBy: v.sendbackBy,
             awbNumber: v.awbNumber,
             action: "sendback"
         }
@@ -66,6 +68,23 @@ export default function SendBack({ job, open, onOpenChange }: Props){
                 <div className="py-4">
                     <form id="frmHandled" onSubmit={frmSendBack.handleSubmit(handleSubmit)}>
                         <FieldGroup>
+                            <Controller
+                                name="sendbackBy"
+                                control={frmSendBack.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="sendbackBy">
+                                            Dikirmkan oleh
+                                        </FieldLabel>
+
+                                        <UsersSelect value={field.value} onChange={field.onChange} />
+
+                                        { fieldState.invalid && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
                             <Controller
                                 name="sendbackOn"
                                 control={frmSendBack.control}

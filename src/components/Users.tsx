@@ -45,7 +45,7 @@ export default function UsersSelect({ value, onChange}: UserSelectProps){
                 label: usr.name,
             }))}>
             <SelectTrigger>
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="Select User" />
             </SelectTrigger>
 
             <SelectContent>
