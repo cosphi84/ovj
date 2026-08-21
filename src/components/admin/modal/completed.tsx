@@ -17,6 +17,7 @@ import { Save } from "lucide-react";
 import { patchJob } from "@/lib/patch-job";
 import { toast } from "@/components/ui/toast";
 import { CompletedDefaultFormValue, CompletedFormValue, CompletedSchema } from "@/schema/completed";
+import {useRouter} from "next/navigation";
 
 interface Props {
     job: Job;
@@ -29,6 +30,7 @@ export default function CompletedModal({
     open,
     onOpenChange,
 }: Props) {
+    const router = useRouter();
     const handleSubmit = async (v: CompletedFormValue) => {
         const payload = {
             completedOn: v.completedOn,
@@ -37,6 +39,7 @@ export default function CompletedModal({
 
         try{
             await patchJob(job.id, payload)
+            router.refresh();
             toast.add({
                 title: "Save Action done",
                 type: "success",

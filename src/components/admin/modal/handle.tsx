@@ -5,7 +5,7 @@ import {
     DialogContent,
     DialogHeader,
     DialogTitle,
-    DialogDescription,
+    DialogDescription, DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Job } from "@/interface/job";
@@ -19,9 +19,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Save } from "lucide-react";
 import { Label } from "@/components/ui/label";
-import { apiUrl } from "@/lib/api";
 import { patchJob } from "@/lib/patch-job";
 import { toast } from "@/components/ui/toast";
+import {useRouter} from "next/navigation";
 
 interface Props {
     job: Job;
@@ -34,6 +34,7 @@ export default function HandleByModal({
     open,
     onOpenChange,
 }: Props) {
+    const router = useRouter();
     const handleSubmit = async (v: HandleJobFormValues) => {
         const payload = {
             handledBy: v.handledBy,
@@ -45,6 +46,7 @@ export default function HandleByModal({
 
         try{
             await patchJob(job.id, payload)
+            router.refresh();
             toast.add({
                 title: "Save Action done",
                 type: "success",
@@ -126,6 +128,7 @@ export default function HandleByModal({
                                         </FieldLabel>
                                         <Textarea 
                                             {...field}
+                                            aria-label={"Action Taken by TC"}
                                             placeholder="Apa yang dilakukan TC"
                                             />
 
@@ -146,7 +149,7 @@ export default function HandleByModal({
                                         </FieldLabel>
                                             <RadioGroup value={field.value} onValueChange={field.onChange}>
                                                 <div className="flex items-center gap-3">
-                                                    <RadioGroupItem value={"OK"} id="OK"/ >
+                                                    <RadioGroupItem value={"OK"} id="OK" />
                                                     <Label htmlFor="OK">OK</Label>
                                                 </div>
                                                 <div className="flex items-center gap-3">
@@ -180,5 +183,5 @@ export default function HandleByModal({
                 </div>
             </DialogContent>
         </Dialog>
-    );
+    )
 }

@@ -47,7 +47,7 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
     return (
         <Select
             onValueChange={(val) => onChange(val ? Number(val) : 0)}
-            defaultValue={value}
+            value={value ? String(value) : ""}
             items={categories.map((category) => ({
                 value: String(category.id),
                 label: category.name,

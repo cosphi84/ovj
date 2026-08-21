@@ -13,6 +13,7 @@ import { SendBackDefaultFormValue, SendBackFormValue, SendBackJobSchema } from "
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Save } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
+import {useRouter} from "next/navigation";
 
 
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 
 
 export default function SendBack({ job, open, onOpenChange }: Props){
+    const router = useRouter();
     const handleSubmit = async (v: SendBackFormValue) => {
         const payload = {
             sendBackOn: v.sendBackOn,
@@ -34,6 +36,7 @@ export default function SendBack({ job, open, onOpenChange }: Props){
 
         try{
             await patchJob(job.id, payload)
+            router.refresh();
             toast.add({
                 title: "Save Action done",
                 type: "success",

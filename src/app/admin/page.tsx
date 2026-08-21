@@ -1,6 +1,8 @@
-"use client";
+  "use client";
 
-export const dynamic = "force-dynamic";
+import {toast} from "@/components/ui/toast";
+
+  export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -44,7 +46,11 @@ export default function AdminDashboard() {
       setJobs(data.jobs);
       setTotalPages(Math.ceil(data.total / ITEMS_PER_PAGE));
     } catch (error) {
-      console.error("Failed to fetch jobs:", error);
+      toast.add({
+        title: "Error",
+        type: "error",
+        description: `Error on loading page: ${error}`,
+      })
     }
     setLoading(false);
   }
