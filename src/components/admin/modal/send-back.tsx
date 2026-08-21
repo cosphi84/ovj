@@ -26,7 +26,7 @@ export default function SendBack({ job, open, onOpenChange }: Props){
     const handleSubmit = async (v: SendBackFormValue) => {
         const payload = {
             sendBackOn: v.sendBackOn,
-            sendBackBy: v.sendBackBy,
+            sentBackBy: v.sendBackBy,
             awbNumber: v.awbNumber,
             action: "sendback"
         }
