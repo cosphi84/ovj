@@ -11,6 +11,7 @@ import {
 import { apiUrl } from "@/lib/api";
 import { useEffect, useState } from "react";
 import { Category } from "@/interface/category";
+import { toast } from "./ui/toast";
 
 interface CategoryProps {
     value: number | null;
@@ -30,23 +31,23 @@ export function SelectCategory({ value, onChange }: CategoryProps) {
                 const data = await response.json();
                 setCategories(data);
             } catch (error) {
-                console.error("Failed to fetch categories:", error);
-            } 
-            setLoading(false);
+                toast.add({
+                    title: "Ups, error",
+                    type: "error",
+                    description: `Error on category loading: ${error}`
+                })
+            }finally{
+                setLoading(false);
+            }
         }
         fetchCategories();
     }, []);
 
-    console.log(value);
-    let strValue : string | undefined = "";
-    if (value !== null ||  value !== 0) {
-        strValue = String(value);
-    }else{
-        strValue = "";
-    }
+    
     return (
         <Select
             onValueChange={(val) => onChange(val ? Number(val) : null)}
+            defaultValue={value}
             items={categories.map((category) => ({
                 value: String(category.id),
                 label: category.name,

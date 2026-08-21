@@ -9,6 +9,16 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Job } from "@/interface/job";
+import { Controller, useForm } from "react-hook-form";
+import { HandleJobDefaultFormValues, HandleJobFormValues, HandleJobScheme } from "@/schema/handlejob";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import UsersSelect from "@/components/Users";
+import { DatePicker } from "@/components/DatePicker";
+import { Textarea } from "@/components/ui/textarea";
+import { Switch } from "@/components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Save } from "lucide-react";
 
 interface Props {
     job: Job;
@@ -29,6 +39,11 @@ export default function HandleByModal({
         onOpenChange(false);
     };
 
+    const frmHandle = useForm<HandleJobFormValues>({
+        resolver: zodResolver(HandleJobScheme),
+        defaultValues: HandleJobDefaultFormValues
+    });
+
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
             <DialogContent>
@@ -41,7 +56,86 @@ export default function HandleByModal({
                 </DialogHeader>
 
                 <div className="py-4">
-                    Isi form untuk melakukan handle job di sini.
+                    <form id="frmHandled" onSubmit={frmHandle.handleSubmit(handleSubmit)}>
+                        <FieldGroup>
+                            <Controller
+                                name="handledBy"
+                                control={frmHandle.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="handledBy">
+                                            Handled By
+                                        </FieldLabel>
+
+                                        <UsersSelect value={field.value} onChange={field.onChange} />
+
+                                        { fieldState.invalid && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                            <Controller
+                                name="handledOn"
+                                control={frmHandle.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="handledOn">
+                                            Finish Date
+                                        </FieldLabel>
+
+                                        <DatePicker value={field.value} onChange={field.onChange} />
+
+                                        { fieldState.invalid && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                            <Controller
+                                name="actionTakenByTC"
+                                control={frmHandle.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="actionTakenByTC">
+                                            Action yang dilakukan
+                                        </FieldLabel>
+                                        <Textarea 
+                                            {...field}
+                                            placeholder="Apa yang dilakukan TC"
+                                            />
+
+                                        { fieldState.invalid && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                            <Controller
+                                name="result"
+                                control={frmHandle.control}
+                                render={({ field, fieldState }) => (
+                                    <Field data-invalid={fieldState.invalid}>
+                                        <FieldLabel htmlFor="result">
+                                            Result
+                                        </FieldLabel>
+                                            <RadioGroup defaultValue={field.value}>
+                                                <RadioGroupItem value={"OK"} id="OK">OK</RadioGroupItem>
+                                                <RadioGroupItem value={"NG"} id="NG">NG</RadioGroupItem>
+                                            </RadioGroup>
+
+                                        { fieldState.invalid && (
+                                            <FieldError errors={[fieldState.error]} />
+                                        )}
+                                    </Field>
+                                )}
+                            />
+
+                        </FieldGroup>
+                    </form>
                 </div>
 
                 <div className="flex justify-end gap-2">
@@ -52,8 +146,8 @@ export default function HandleByModal({
                         Cancel
                     </Button>
 
-                    <Button onClick={handleSubmit}>
-                        Handle
+                    <Button form="frmHandled" type="submit">
+                        <Save /> Save
                     </Button>
                 </div>
             </DialogContent>

@@ -8,7 +8,7 @@ export async function GET() {
     const users = await prisma.user.findMany({
       where: { active: true },
       select: { id: true, email: true, name: true, active: true },
-      orderBy: { name: "asc" },
+      orderBy: { id: "asc" },
     });
     return NextResponse.json(users);
   } catch (error) {
