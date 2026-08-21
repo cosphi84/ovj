@@ -4,7 +4,7 @@ export const dynamic = "force-dynamic";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Pagination } from "@/components/Pagination";
 import { apiUrl } from "@/lib/api";
 
@@ -23,7 +23,6 @@ const ITEMS_PER_PAGE = 10;
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);

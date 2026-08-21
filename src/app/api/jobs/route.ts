@@ -19,6 +19,8 @@ export async function GET(request: NextRequest) {
 
     if (active) {
       where.completedOn = null;
+    }else{
+      where.completedOn = { not: null}
     }
 
     if (search) {

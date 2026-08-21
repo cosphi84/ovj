@@ -92,7 +92,7 @@ export default async function JobAdminDetail({ params }: PageProps) {
           <div className="col-span-2 bg-white p-6 rounded shadow">
             <h3 className="text-xl font-bold mb-4">Requester Information</h3>
             <div className="grid grid-cols-2 gap-4">
-              <div>
+              <div className="flex flex-1 gap-4">
                 <label className="text-gray-600 font-semibold">Sender:</label>
                 <p>{job.sender}</p>
               </div>
