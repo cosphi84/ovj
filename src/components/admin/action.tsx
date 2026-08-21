@@ -9,6 +9,7 @@ import {patchJob} from "@/lib/patch-job";
 import { Button } from "@/components/ui/button";
 import {toast} from "@/components/ui/toast";
 import {Capitalize} from "@/lib/format-helper";
+import HandleByModal from "./modal/handle";
 
 interface Props {
     job: Job;
@@ -69,6 +70,7 @@ export default function ActionField({ job }: Props) {
 
 
     return (
+        <>
         <Card className="col-span-2 bg-white p-6 rounded shadow">
             <CardHeader >
                 <CardTitle className={"text-xl font-bold mb-4"}>Actions</CardTitle>
@@ -89,5 +91,15 @@ export default function ActionField({ job }: Props) {
 
             {error && <p className="px-6 pb-4 text-sm text-red-500">{error}</p>}
         </Card>
+
+        <HandleByModal 
+            job={job}
+            open={modal.type === "handle" && modal.open}
+            onOpenChange={(open) => setModal({
+                type: "handle",
+                open
+            })}
+        />
+        </>
     )
 }
