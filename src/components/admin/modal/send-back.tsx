@@ -25,8 +25,8 @@ interface Props {
 export default function SendBack({ job, open, onOpenChange }: Props){
     const handleSubmit = async (v: SendBackFormValue) => {
         const payload = {
-            sendBackOn: v.sendbackOn,
-            sendBackBy: v.sendbackBy,
+            sendBackOn: v.sendBackOn,
+            sendBackBy: v.sendBackBy,
             awbNumber: v.awbNumber,
             action: "sendback"
         }
@@ -70,11 +70,11 @@ export default function SendBack({ job, open, onOpenChange }: Props){
                     <form id="frmHandled" onSubmit={frmSendBack.handleSubmit(handleSubmit)}>
                         <FieldGroup>
                             <Controller
-                                name="sendbackBy"
+                                name="sendBackBy"
                                 control={frmSendBack.control}
                                 render={({ field, fieldState }) => (
                                     <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor="sendbackBy">
+                                        <FieldLabel htmlFor="sendBackBy">
                                             Dikirmkan oleh
                                         </FieldLabel>
 
