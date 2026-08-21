@@ -16,9 +16,12 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import UsersSelect from "@/components/Users";
 import { DatePicker } from "@/components/DatePicker";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Save } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { apiUrl } from "@/lib/api";
+import { patchJob } from "@/lib/patch-job";
+import { toast } from "@/components/ui/toast";
 
 interface Props {
     job: Job;
@@ -31,11 +34,30 @@ export default function HandleByModal({
     open,
     onOpenChange,
 }: Props) {
-    const handleSubmit = () => {
-        console.log("Handle job:", job.id);
+    const handleSubmit = async (v: HandleJobFormValues) => {
+        const payload = {
+            handledBy: v.handledBy,
+            handledOn: v.handledOn,
+            actionTakenByTC: v.actionTakenByTC,
+            result: v.result,
+            action: 'handle'
+        }
 
-        // nanti di sini bisa melakukan patchJob()
-        // setelah berhasil:
+        try{
+            await patchJob(job.id, payload)
+            toast.add({
+                title: "Save Action done",
+                type: "success",
+                description: `Handle Job ID #${job.id} Done`
+            });
+        }catch (e) {
+                const message = e instanceof Error ? e.message : "Something went wrong";
+                toast.add({
+                    title: "Proses Save Handled Failed",
+                    type: "error",
+                    description: message,
+                });
+            }
         onOpenChange(false);
     };
 
@@ -123,8 +145,10 @@ export default function HandleByModal({
                                             Result
                                         </FieldLabel>
                                             <RadioGroup defaultValue={field.value}>
-                                                <RadioGroupItem value={"OK"} id="OK">OK</RadioGroupItem>
-                                                <RadioGroupItem value={"NG"} id="NG">NG</RadioGroupItem>
+                                                <RadioGroupItem value={"OK"} id="OK"/ >
+                                                <Label htmlFor="OK">OK</Label>
+                                                <RadioGroupItem value={"NG"} id="NG" />
+                                                <Label htmlFor="NG">NG</Label>
                                             </RadioGroup>
 
                                         { fieldState.invalid && (

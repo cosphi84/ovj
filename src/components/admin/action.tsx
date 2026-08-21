@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import {toast} from "@/components/ui/toast";
 import {Capitalize} from "@/lib/format-helper";
 import HandleByModal from "./modal/handle";
+import SendBack from "./modal/send-back";
+import CompletedModal from "./modal/completed";
 
 interface Props {
     job: Job;
 }
 
-type ModalState = { type: "handle" | "sendback"; open: boolean };
+type ModalState = { type: "handle" | "sendback" | "complete"; open: boolean };
 
 type ActionConfig = {
     key: keyof JobState;
@@ -65,7 +67,7 @@ export default function ActionField({ job }: Props) {
         { key: "canReceive", label: "Received", onClick: () => runAction("receive"), variant: "blue" },
         { key: "canHandle", label: "Handle", onClick: () => setModal({ type: "handle", open: true }), variant: "blue" },
         { key: "canSendBack", label: "Send Back", onClick: () => setModal({ type: "sendback", open: true }), variant: "blue" },
-        { key: "canComplete", label: "Set Completed", onClick: () => runAction("complete"), variant: "green" },
+        { key: "canComplete", label: "Set Completed", onClick: () => setModal({ type: "complete", open: true }), variant: "green" },
     ];
 
 
@@ -97,6 +99,24 @@ export default function ActionField({ job }: Props) {
             open={modal.type === "handle" && modal.open}
             onOpenChange={(open) => setModal({
                 type: "handle",
+                open
+            })}
+        />
+
+        <SendBack
+            job={job}
+            open={modal.type === "sendback" && modal.open}
+            onOpenChange={(open) => setModal({
+                type: "sendback",
+                open
+            })}
+        />
+
+        <CompletedModal
+            job={job}
+            open={modal.type === "complete" && modal.open}
+            onOpenChange={(open) => setModal({
+                type: "complete",
                 open
             })}
         />
