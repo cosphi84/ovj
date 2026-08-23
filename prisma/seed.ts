@@ -3,8 +3,8 @@ import {prisma} from "@/lib/db";
 
 async function main() {
     console.log("🌱 Starting database seed...");
-
-    const password = await bcrypt.hash("PASSWORD", 10);
+    const strPwd = process.env["SEED_PASSWORD"] ?? "PASSWORD"
+    const password = await bcrypt.hash(strPwd, 10);
 
     const user = await prisma.user.upsert({
         where: {

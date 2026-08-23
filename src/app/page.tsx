@@ -12,22 +12,16 @@ import { DropdownMenu , DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIt
 import { Button } from "@/components/ui/button";
 import {EyeIcon, MoreHorizontalIcon} from "lucide-react";
 import {useRouter} from "next/navigation";
+import {JobResponse} from "@/interface/job";
+import StatusJob from "@/components/Status-Job";
+import Loading from "@/components/Loading";
 
-interface Job {
-  id: string;
-  notification: string;
-  category: { name: string };
-  model: string | null;
-  serialNumber: string | null;
-  symptom: string;
-  sender: string;
-  handledByUser?: { name: string } | null;
-}
+
 
 const ITEMS_PER_PAGE = 10;
 
 export default function Home() {
-  const [jobs, setJobs] = useState<Job[]>([]);
+  const [jobs, setJobs] = useState<JobResponse[]>([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("Active");
@@ -46,6 +40,19 @@ export default function Home() {
       const response = await fetch(
         apiUrl(`/api/jobs?page=${currentPage}&limit=${ITEMS_PER_PAGE}&active=true`)
       );
+
+      if (response.status === 503) {
+        const data = await response.json().catch(() => null);
+        if (data?.code === "DB_UNAVAILABLE") {
+          router.push("/error/critical");
+          return; // stop di sini, jangan lanjut setJobs
+        }
+      }
+
+      if (!response.ok) {
+        throw new Error(`Request failed: ${response.status}`);
+      }
+
       const data = await response.json();
       setJobs(data.jobs);
       setTotalPages(Math.ceil(data.total / ITEMS_PER_PAGE));
@@ -74,7 +81,7 @@ export default function Home() {
             </CardHeader>
             <CardContent>
               {loading ? (
-                  <div className="text-center py-8">Loading...</div>
+                  <Loading text={"Loading..."} />
               ): jobs.length === 0 ? (
                   <div className="text-center py-8 text-gray-500">
                     No active job requests
@@ -106,8 +113,10 @@ export default function Home() {
                             </TableCell>
                             <TableCell>{job.symptom}</TableCell>
                             <TableCell>{job.sender}</TableCell>
-                            <TableCell>Approved</TableCell>
-                            <TableCell>Result</TableCell>
+                            <TableCell><StatusJob job={job} /></TableCell>
+                            <TableCell>
+                              { job.result ?? '-' }
+                            </TableCell>
                             <TableCell>
                               <DropdownMenu>
                                 <DropdownMenuTrigger render={

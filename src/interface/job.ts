@@ -73,3 +73,22 @@ export interface JobRequest {
     requestBy: string;
     requestOn: Date;
 }
+
+export interface JobResponse {
+    id: string;
+    notification: string;
+    category: { name: string };
+    model: string | null;
+    serialNumber: string | null;
+    symptom: string;
+    sender: string;
+    result: string | null;
+    approvedOn: Date | null;
+    receivedOn: Date | null;
+    handledByUser?: {
+        name: string;
+    } | null;
+    handledOn: Date | null;
+    sendBackOn: Date | null;
+    completedOn: Date | null;
+}

@@ -4,6 +4,7 @@ import {sendEmail} from "@/lib/mailer";
 import {EmailFormat} from "@/interface/mailer";
 import {RequestJobBodyMail} from "@/constants/mailer";
 import {Prisma} from "../../../../prisma/generated/prisma/client";
+import {isDatabaseConnectionError} from "@/lib/db-error";
 
 export async function GET(request: NextRequest) {
   try {
@@ -42,6 +43,12 @@ export async function GET(request: NextRequest) {
           symptom: true,
           sender: true,
           handledByUser: { select: { name: true } },
+          result: true,
+          approvedOn: true,
+          receivedOn: true,
+          handledOn: true,
+          sendBackOn: true,
+          completedOn: true,
         },
         skip,
         take: limit,
@@ -58,11 +65,15 @@ export async function GET(request: NextRequest) {
       total,
     });
   } catch (error) {
+    if (isDatabaseConnectionError(error)) {
+      console.error("[DB_UNAVAILABLE]", error); // tetap log server-side untuk monitoring, tapi ter-tag jelas
+      return NextResponse.json(
+          { error: "Database is unavailable", code: "DB_UNAVAILABLE" },
+          { status: 503 } // 503 Service Unavailable, bukan 500 — ini penting untuk semantik HTTP
+      );
+    }
     console.error("Failed to fetch jobs:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch jobs" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to fetch jobs" }, { status: 500 });
   }
 }
 

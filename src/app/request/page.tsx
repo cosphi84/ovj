@@ -14,8 +14,12 @@ import { SelectCategory } from "@/components/Categories";
 import { toast } from "@/components/ui/toast";
 import { useRouter } from "next/navigation";
 import { apiUrl } from "@/lib/api";
+import {useState} from "react";
+import Loading from "@/components/Loading";
 
 export default function JobRequestPage(){
+
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
     const theForm = useForm<JobRequestFormValues>({
         resolver: zodResolver(JobRequestSchema),
@@ -29,6 +33,7 @@ export default function JobRequestPage(){
         }
 
         try {
+            setLoading(true);
             const response = await fetch(apiUrl("/api/jobs"), {
                 method: "POST",
                 headers: {
@@ -63,8 +68,12 @@ export default function JobRequestPage(){
                 description: `${error}`,
                 type: "error"
             });
+        }finally {
+            setLoading(false);
         }
     }
+
+    if (loading) return <Loading text={"Loading..."} />;
 
     return (
         <div className="min-h-screen bg-gray-50">
