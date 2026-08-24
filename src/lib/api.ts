@@ -1,4 +1,4 @@
-export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+import { BASE_PATH } from "./basepath";
 
 export function apiUrl(path: string) {
   // pastiin gak dobel slash kalau path udah diawali "/"

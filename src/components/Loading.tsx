@@ -1,6 +1,7 @@
 // components/Loading.tsx
 "use client";
 
+import { BASE_PATH } from "@/lib/basepath";
 import Image from "next/image";
 
 interface LoadingProps {
@@ -18,7 +19,7 @@ export default function Loading({ fullScreen = false, text = "Loading..." }: Loa
             }
         >
             <Image
-                src="/loading.gif"
+                src={`${BASE_PATH}/loading.gif`}
                 alt="Loading"
                 width={397}
                 height={283}

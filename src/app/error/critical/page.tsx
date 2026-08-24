@@ -1,13 +1,14 @@
 // app/error/critical/page.tsx
 "use client";
 
+import { BASE_PATH } from "@/lib/basepath";
 import Image from "next/image";
 
 export default function CriticalErrorPage() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4 text-center">
             <Image
-                src="/hmm.gif"
+                src={`${BASE_PATH}/hmm.gif`}
                 alt="Server bingung"
                 width={200}
                 height={200}

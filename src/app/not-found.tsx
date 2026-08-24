@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { BASE_PATH } from "@/lib/basepath";
 
 export default function NotFoundPage() {
     return (
@@ -9,12 +10,12 @@ export default function NotFoundPage() {
                 <div className="flex flex-col max-w-xl text-center items-center justify-center px-4">
                     <div className="text-3xl font-medium">Not found!</div>
                     <div className="mt-6 ">
-                        <Image src={"/notfound.gif"} alt={"Not found"} width={550} height={450}  className={"rounded-lg shadow-lg shadow-gray-500 dark:shadow-white "} loading={"lazy"}/>
+                        <Image src={`${BASE_PATH}/notfound.gif`} alt={"Not found"} width={550} height={450} unoptimized  className={"rounded-lg shadow-lg shadow-gray-500 dark:shadow-white "} loading={"lazy"}/>
                     </div>
                     <div className="mt-8">
                         <Link
                             className="focus:outline-none focus-visible:ring-1 focus-visible:ring-ring py-2 px-3 rounded-lg bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700"
-                            href="/"
+                            href={`${BASE_PATH}/`}
                         >
                             Return to home
                         </Link>
