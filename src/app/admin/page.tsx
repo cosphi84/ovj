@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Pagination } from "@/components/Pagination";
 import { apiUrl } from "@/lib/api";
+  import {ExportData} from "@/components/admin/modal/export";
 
 interface Job {
   id: string;
@@ -32,6 +33,7 @@ export default function AdminDashboard() {
   const [status, setStatus] = useState("Active");
   const [searchQuery, setSearchQuery] = useState("");
   const [exporting, setExporting] = useState(false);
+  const [exportModalOpen, setExportModalOpen] = useState(false);
 
   useEffect(() => {
 
@@ -139,12 +141,11 @@ export default function AdminDashboard() {
               Search
             </button>
             <button
-              type="button"
-              onClick={handleExportExcel}
-              disabled={exporting}
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:opacity-50"
+                type="button"
+                onClick={() => setExportModalOpen(true)}
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             >
-              {exporting ? "Exporting..." : "Export CSV"}
+              Export
             </button>
           </form>
         </div>
@@ -216,6 +217,7 @@ export default function AdminDashboard() {
           </>
         )}
       </main>
+      <ExportData open={exportModalOpen} onClose={() => setExportModalOpen(false)} />
     </div>
   );
 }
