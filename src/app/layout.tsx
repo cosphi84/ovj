@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "OVerjob Technical Center",
+  title: "TC Over Job Request",
   description: "Job transfer request to technical center",
 };
 

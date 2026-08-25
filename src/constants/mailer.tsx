@@ -1,7 +1,7 @@
-import { JobRequest} from "@/interface/job";
+import {JobRequest} from "@/interface/job";
 
 export function RequestJobBodyMail(job: JobRequest) :string {
-    const html: string = `
+    return `
     <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #333; line-height: 1.6;">
     <p>
         Sebuah request transfer job ke TC sudah dibuat dengan data berikut:
@@ -74,7 +74,5 @@ export function RequestJobBodyMail(job: JobRequest) :string {
 
 </div>
     `;
-
-    return html;
 }
 

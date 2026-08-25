@@ -15,6 +15,6 @@ export function isDatabaseConnectionError(error: unknown): boolean {
     if (!error || typeof error !== "object") return false;
     const err = error as { code?: string; name?: string };
     if (err.code && DB_CONNECTION_ERROR_CODES.has(err.code)) return true;
-    if (err.name === "PrismaClientInitializationError") return true;
-    return false;
+    return err.name === "PrismaClientInitializationError";
+
 }

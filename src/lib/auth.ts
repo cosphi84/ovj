@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
-import { jwtVerify, jwtSign } from "./jwt";
+import {cookies} from "next/headers";
+import {jwtSign, jwtVerify} from "./jwt";
 
 export interface Session {
   userId: number;
@@ -36,8 +36,8 @@ export async function getSession(): Promise<Session | null> {
   }
 
   try {
-    const session = await jwtVerify<Session>(token);
-    return session;
+    return await jwtVerify<Session>(token);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return null;
   }
