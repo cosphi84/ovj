@@ -4,6 +4,7 @@ export default function getJobState(job: Job) : JobState{
     const steps = [
         job.approvedOn,
         job.receivedOn,
+        job.handledBy,
         job.handledOn,
         job.sendBackOn,
         job.completedOn,
