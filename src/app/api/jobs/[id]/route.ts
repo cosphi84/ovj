@@ -66,9 +66,13 @@ export async function PATCH(
           receivedOn: new Date(),
         };
         break;
-      case "handle":
+      case "assign":
         updateData = {
           handledBy: parseInt(data.handledBy),
+        };
+        break;
+      case "handle":
+        updateData = {
           handledOn: new Date(data.handledOn),
           result: data.result,
           actionTakenByTC: data.actionTakenByTC,

@@ -12,12 +12,13 @@ import {Capitalize} from "@/lib/format-helper";
 import HandleByModal from "./modal/handle";
 import SendBack from "./modal/send-back";
 import CompletedModal from "./modal/completed";
+import AssignTechnician from "./modal/assigned";
 
 interface Props {
     job: Job;
 }
 
-type ModalState = { type: "handle" | "sendback" | "complete"; open: boolean };
+type ModalState = { type: "assign" | "handle" | "sendback" | "complete"; open: boolean };
 
 type ActionConfig = {
     key: keyof JobState;
@@ -35,7 +36,7 @@ export default function ActionField({ job }: Props) {
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
     const [error, setError] = useState<string | null>(null);
-    const [modal, setModal] = useState<ModalState>({ type: "handle", open: false });
+    const [modal, setModal] = useState<ModalState>({ type: "assign", open: false });
 
     const state = useMemo<JobState>(() => getJobState(job), [job]);
 
@@ -65,6 +66,7 @@ export default function ActionField({ job }: Props) {
     const actions: ActionConfig[] = [
         { key: "canApprove", label: "Approve", onClick: () => runAction("approve"), variant: "blue" },
         { key: "canReceive", label: "Received", onClick: () => runAction("receive"), variant: "blue" },
+        { key: "canAssign", label: "Assigned", onClick: () => setModal({ type: "assign", open: true}), variant: "green"},
         { key: "canHandle", label: "Handle", onClick: () => setModal({ type: "handle", open: true }), variant: "blue" },
         { key: "canSendBack", label: "Send Back", onClick: () => setModal({ type: "sendback", open: true }), variant: "blue" },
         { key: "canComplete", label: "Set Completed", onClick: () => setModal({ type: "complete", open: true }), variant: "green" },
@@ -120,6 +122,15 @@ export default function ActionField({ job }: Props) {
                 open
             })}
         />
+
+        <AssignTechnician 
+            job={job}
+            open={modal.type === "assign" && modal.open}
+            onOpenChange={(open) => setModal({
+                type: "assign",
+                open
+            })}
+            />
         </>
     )
 }

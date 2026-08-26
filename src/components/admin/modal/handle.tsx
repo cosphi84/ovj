@@ -37,7 +37,6 @@ export default function HandleByModal({
     const router = useRouter();
     const handleSubmit = async (v: HandleJobFormValues) => {
         const payload = {
-            handledBy: v.handledBy,
             handledOn: v.handledOn,
             actionTakenByTC: v.actionTakenByTC,
             result: v.result,
@@ -82,24 +81,6 @@ export default function HandleByModal({
                 <div className="py-4">
                     <form id="frmHandled" onSubmit={frmHandle.handleSubmit(handleSubmit)}>
                         <FieldGroup>
-                            <Controller
-                                name="handledBy"
-                                control={frmHandle.control}
-                                render={({ field, fieldState }) => (
-                                    <Field data-invalid={fieldState.invalid}>
-                                        <FieldLabel htmlFor="handledBy">
-                                            Handled By
-                                        </FieldLabel>
-
-                                        <UsersSelect value={field.value} onChange={field.onChange} />
-
-                                        { fieldState.invalid && (
-                                            <FieldError errors={[fieldState.error]} />
-                                        )}
-                                    </Field>
-                                )}
-                            />
-
                             <Controller
                                 name="handledOn"
                                 control={frmHandle.control}

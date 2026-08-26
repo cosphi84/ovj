@@ -56,6 +56,7 @@ export interface Job {
 export interface JobState {
     canApprove: boolean;
     canReceive: boolean;
+    canAssign: boolean;
     canHandle: boolean;
     canSendBack: boolean;
     canComplete: boolean;

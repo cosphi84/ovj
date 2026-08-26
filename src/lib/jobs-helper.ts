@@ -12,8 +12,9 @@ export default function getJobState(job: Job) : JobState{
     return {
         canApprove:  !steps[0],
         canReceive:  steps.slice(0, 1).every(Boolean) && !steps[1],
-        canHandle:   steps.slice(0, 2).every(Boolean) && !steps[2],
-        canSendBack: steps.slice(0, 3).every(Boolean) && !steps[3],
-        canComplete: steps.slice(0, 4).every(Boolean) && !steps[4],
+        canAssign: steps.slice(0, 2).every(Boolean) && !steps[2],
+        canHandle:   steps.slice(0, 3).every(Boolean) && !steps[3],
+        canSendBack: steps.slice(0, 4).every(Boolean) && !steps[4],
+        canComplete: steps.slice(0, 5).every(Boolean) && !steps[5],
     };
 }
