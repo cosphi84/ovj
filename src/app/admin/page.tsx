@@ -32,7 +32,6 @@ export default function AdminDashboard() {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("Active");
   const [searchQuery, setSearchQuery] = useState("");
-  const [exporting, setExporting] = useState(false);
   const [exportModalOpen, setExportModalOpen] = useState(false);
 
   useEffect(() => {
@@ -64,25 +63,6 @@ export default function AdminDashboard() {
     e.preventDefault();
     if (searchQuery.trim()) {
       router.push(`/admin/search?q=${encodeURIComponent(searchQuery)}`);
-    }
-  }
-
-  async function handleExportExcel() {
-    setExporting(true);
-    try {
-      const active = status === "Active" ? "true" : "false";
-      const response = await fetch(apiUrl(`/api/export?active=${active}`));
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `jobs-${new Date().getTime()}.csv`;
-      a.click();
-    } catch (error) {
-      console.error("Failed to export:", error);
-      alert("Failed to export Excel file");
-    } finally {
-      setExporting(false);
     }
   }
 

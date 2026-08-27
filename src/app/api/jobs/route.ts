@@ -42,6 +42,7 @@ export async function GET(request: NextRequest) {
           serialNumber: true,
           symptom: true,
           sender: true,
+          handledBy: true,
           handledByUser: { select: { name: true } },
           result: true,
           approvedOn: true,

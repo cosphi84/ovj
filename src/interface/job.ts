@@ -86,6 +86,7 @@ export interface JobResponse {
     result: string | null;
     approvedOn: Date | null;
     receivedOn: Date | null;
+    handledBy?: number | null;
     handledByUser?: {
         name: string;
     } | null;

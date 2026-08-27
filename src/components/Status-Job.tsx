@@ -34,6 +34,12 @@ function resolveStatus(job: JobResponse): StatusConfig {
             className: "bg-blue-100 text-blue-800 border-blue-300",
         };
     }
+    if (job.handledBy) {
+        return {
+            label: "On Repair",
+            className: "bg-teal-100 text-teal-800 border-teal-300",
+        };
+    }
     if (job.receivedOn) {
         return {
             label: "Received",

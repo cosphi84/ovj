@@ -15,7 +15,7 @@ export default function NotFoundPage() {
                     <div className="mt-8">
                         <Link
                             className="focus:outline-none focus-visible:ring-1 focus-visible:ring-ring py-2 px-3 rounded-lg bg-secondary hover:bg-gray-200 dark:hover:bg-gray-700"
-                            href={`${BASE_PATH}/`}
+                            href="/"
                         >
                             Return to home
                         </Link>
